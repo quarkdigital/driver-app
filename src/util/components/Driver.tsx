@@ -1,65 +1,80 @@
 import React, { useEffect, useState } from "react";
-import { Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import { Text, TouchableHighlight, View } from "react-native";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3001", { transports: ["websocket"] });
+const socket = io("http://192.168.1.67:3001"); // Insert your own ip address
 
 const DriverApp = () => {
-	// const carId = "123"; // Unique identifier for each car
-	// const location = { lat: 37.123, lng: -122.456 }; // Example location data
+	const companyID = "Palma";
+	const vehicleID = "123"; // Unique identifier for each car
+
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	const [location, setLocation] = useState({ lat: 42.289938, lng: 18.843297 });
 
 	const [isConnected, setIsConnected] = useState(false);
-	const [messages, setMessages] = useState<string[]>([]);
-	const [value, setValue] = useState("");
+	// const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+	// const INTERVAL_TIME = 7000;
 
 	useEffect(() => {
 		// Send location updates to the server
-		// console.log("Sending location update:", { carId, location });
-		// socket.emit("updateLocation", { carId, location });
+		socket.emit("updateLocation", { vehicleID, companyID, location, connected: true });
 
 		socket.on("connect", () => setIsConnected(true));
-		socket.on("disconnect", () => setIsConnected(false));
-		socket.on("message", onMessage);
+		socket.on("disconnect", () => {
+			console.log("Driver disconnected");
+			socket.emit("DisconnectionOfCar", {
+				vehicleID,
+				companyID,
+				location: location,
+				connected: false,
+			});
+			// clearInterval(interval);
+			setIsConnected(false);
+		});
 
-		// Log a message when the socket connection is established
-		console.log("Socket connection status:", socket.connected);
+		// const interval = setInterval(() => {
+		// 	const newLocation = { lat: Math.random(), lng: Math.random() };
+		// 	setLocation(newLocation);
+		// 	socket.emit("updateLocation", {
+		// 		vehicleID,
+		// 		companyID,
+		// 		location: newLocation,
+		// 		connected: true,
+		// 	});
+		// }, INTERVAL_TIME);
+		// setIntervalId(interval);
 
 		return () => {
 			// Clean up socket connection
-			// socket.disconnect();
-			// console.log("Driver app disconnected from the server.");
-
-			socket.off("connect"); // add func
-			socket.off("disconnect"); // add func
-			socket.off("message", onMessage);
+			socket.disconnect();
+			// clearInterval(intervalId); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
 		};
 	}, []);
 
-	function onMessage(message: string) {
-		setMessages(prevVal => [...prevVal, message]);
-	}
-
-	function onClickSend() {
-		socket.emit("message", value);
-		setValue("");
+	function onDisconnect() {
+		socket.emit("DisconnectionOfCar", {
+			vehicleID,
+			companyID,
+			location: location,
+			connected: false,
+		});
+		socket.disconnect();
+		// clearInterval(intervalId);
 	}
 
 	return (
 		<View>
 			<Text>Driver App</Text>
-			{/* <Text>Car ID: {carId}</Text>
+			<Text>{isConnected ? "🟢 Connected" : "🔴 Disconnected"}</Text>
+			<Text>Company: {companyID}</Text>
+			<Text>Car ID: {vehicleID}</Text>
 			<Text>
 				Location: {location.lat}, {location.lng}
-			</Text> */}
-			<Text>{isConnected ? "🟢 Connected" : "🔴 Disconnected"}</Text>
-
-			{messages.map((message, index) => (
-				<Text key={index}>{message}</Text>
-			))}
-			<TextInput placeholder="Your message" value={value} onChangeText={setValue} />
-			<TouchableWithoutFeedback onPress={onClickSend}>
-				<Text>Send</Text>
-			</TouchableWithoutFeedback>
+			</Text>
+			<TouchableHighlight onPress={onDisconnect}>
+				<Text>Disconnect</Text>
+			</TouchableHighlight>
 		</View>
 	);
 };
