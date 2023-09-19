@@ -1,12 +1,12 @@
-{
-	"useTabs": true,
-	"tabWidth": 4,
-	"arrowParens": "avoid",
-	"proseWrap": "never",
-	"trailingComma": "es5",
-	"printWidth": 100,
-	"jsxBracketSameLine": true,
-	"singleQuote": false,
-	"jsxSingleQuote": false,
-	"quoteProps": "preserve"
+{	
+	"prettier.useTabs": true,
+	"prettier.tabWidth": 4,
+	"prettier.arrowParens": "avoid",
+	"prettier.proseWrap": "never",
+	"prettier.trailingComma": "none",
+	"prettier.printWidth": 100,
+	"prettier.jsxBracketSameLine": true,
+	"prettier.singleQuote": false,
+	"prettier.jsxSingleQuote": true,
+	"prettier.quoteProps": "preserve"
 }
