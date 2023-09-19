@@ -1,6 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import DriverApp from "./src/util/components/Driver";
+import { enableLatestRenderer } from "react-native-maps";
+
+enableLatestRenderer();
 
 export default function App() {
 	return (
