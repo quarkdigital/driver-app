@@ -26,7 +26,7 @@ const Avatar = () => {
 			<Image source={require("../../../assets/gay.png")} style={[t.wFull, t.hFull, styles.image]} />
 			{modal && <View style={[t.flexCol, t.justifyStart, t.itemsEnd]}>
 				<View style={[styles.modal]}>
-					<View style={[styles.modalPolygon]}></View>
+					<Image source={require("../../../assets/polygon.png")} style={[t.w10, t.h6, t.selfEnd, t.absolute, t.top0, styles.polygon]} />
 					<View style={[t.flexCol, t.justifyCenter, t.itemsCenter]}>
 						<Image source={require("../../../assets/gay.png")} style={[t.wFull, t.hFull, t.border, styles.image, t.borderX0, t.borderY0]} />
 						<Text style={styles.text}>George Popovic</Text>
@@ -57,23 +57,20 @@ const styles = StyleSheet.create({
 		borderColor: "#000000",
 		borderWidth: 4,
 	},
-	modalPolygon: {
-		width: 29,
-		height: 29.311,
-		backgroundColor: "#1C2129",
-		transform: [{rotate: "45deg"}],
-		position: "absolute",
-	},
 	modal: {
 		width: 330,
 		height: 370,
 		backgroundColor: "#1C2129",
-		marginTop: 10,
+		marginTop: 20,
 		borderRadius: 16,
 		display: "flex",
 		justifyContent: "space-between",
 		alignItems: "center",
 		padding: 25
+	},
+	polygon: {
+		top: -10,
+		right: 17
 	},
 	text: {
 		color:"#FFF",
