@@ -20,10 +20,13 @@ const Navbar = () => {
 			name: "Dispatcher",
 			img: require("/assets/break.png")
 		},
-    
+		{
+			name: "Daddy I am stuck",
+			img: require("/assets/message.png")
+		},
 	];
 	return openModal ? (
-		<View style={[t.w5_12, t.hFull, t.h100, t.flexCol, t.justifyBetween, t.absolute, styles.containerColor, t.itemsCenter]}>
+		<View style={[t.w5_12, t.hFull, t.h100, t.flexCol, t.justifyBetween, styles.containerColor, t.itemsCenter]}>
 			<View style={[t.wFull, t.flexRow, t.justifyBetween, t.itemsStart, t.p4]}>
 				<TouchableHighlight onPress={() => setOpenModal(!openModal)}>
 					<Image source={require("../../../assets/burger.png")} style={[t.w6, t.h5, t.mT2]} />
@@ -35,12 +38,14 @@ const Navbar = () => {
 				<Text style={[t.textWhite, t.h100, t.textBase]}>12:34</Text>
 			</View>
 			<View style={[t.wFull, t.flexCol, t.justifyBetween, t.itemsCenter, t.hAuto]}>
-				<Image
+				<Image	
 					source={require("../../../assets/logo.png")}
 					style={{ width: 180, height: 180, resizeMode: "contain" }}
 				/>
 				{buttons.map((item) => (
-					<Button title={item.name} key={item.name} imageURL={item.img} />
+					<View key={item.name} style={[t.flexRow, t.flexWrap, t.wFull]}>
+						<Button title={item.name} key={item.name} imageURL={item.img} shape="square"/>
+					</View>
 				))}
 			</View>
 			<Text style={[styles.helpAndSupportText, t.mB4]}>Help & Support</Text>
@@ -81,7 +86,7 @@ const styles = StyleSheet.create({
 		fontWeight: "500",
 		lineHeight: 24,
 		textDecorationLine: "underline",
-	}
+	},
 });
 
 export default Navbar;
