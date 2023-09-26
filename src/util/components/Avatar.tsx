@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button from "./Button";
+import DriverCard from "./DriverCard";
 const Avatar = () => {
 	const [modal, setModal] = useState(true);
+	const [changeDriverModal, setChangeDriverModal] = useState(true);
+	
+	function onChangeDriver() {
+		setChangeDriverModal(!changeDriverModal);
+	}
+
 	const buttons = [
 		{
 			name: "Change Driver",
 			img: require("/assets/break.png"),
-			backgroundColor: "white"
+			backgroundColor: "white",
+			onPress: onChangeDriver
 		},
 		{
 			name: "Drive History (tbd)",
@@ -21,23 +29,50 @@ const Avatar = () => {
 			backgroundColor: "transparent"
 		},
 	];
+
+	const drivers = [
+		{
+			name: "Marko Scekic",
+			active: "Online: 7h ago",
+			imageURL: require("../../../assets/someguy.png")
+		},
+		{
+			name: "Uros Stesevic",
+			active: "Online: 7h ago",
+			imageURL: require("../../../assets/john.png")
+		},
+		{
+			name: "Djordje Popovic",
+			active: "Online: 7h ago",
+			imageURL: require("../../../assets/marcusaurelius.png")
+		}
+	];
+
+
 	return (
 		<TouchableOpacity onPress={() => setModal(!modal)} style={styles.container}>
 			<Image source={require("../../../assets/gay.png")} style={[t.wFull, t.hFull, styles.image]} />
 			{modal && <View style={[t.flexCol, t.justifyStart, t.itemsEnd]}>
-				<View style={[styles.modal]}>
+				<View style={[!changeDriverModal ? styles.modal : styles.changeDriverModal]}>
 					<Image source={require("../../../assets/polygon.png")} style={[t.w10, t.h6, t.selfEnd, t.absolute, t.top0, styles.polygon]} />
-					<View style={[t.flexCol, t.justifyCenter, t.itemsCenter]}>
-						<Image source={require("../../../assets/gay.png")} style={[t.wFull, t.hFull, t.border, styles.image, t.borderX0, t.borderY0]} />
-						<Text style={styles.text}>George Popovic</Text>
+					{!changeDriverModal && <>
+						<View style={[t.flexCol, t.justifyCenter, t.itemsCenter]}>
+							<Image source={require("../../../assets/gay.png")} style={[t.wFull, t.hFull, t.border, styles.image, t.borderX0, t.borderY0]} />
+							<Text style={styles.text}>George Popovic</Text>
+						</View><View style={styles.separator}></View>
+						{buttons.map((item) => (
+							<Button key={item.name} title={item.name} shape="circle" backgroundColor={item.backgroundColor} onPress={item.onPress}/>
+						))}
+					</>
+					}
+					{changeDriverModal && <View style={[t.flexCol, t.justifyStart]}>
+						{drivers && drivers.map((item, index) => (
+							<DriverCard key={item.name} name={item.name} imageURL={item.imageURL} active={item.active} index={index}/>
+						))}
 					</View>
-					<View style={styles.separator}></View>
-					{buttons.map((item) => (
-						<Button key={item.name} title={item.name} shape="circle" backgroundColor={item.backgroundColor}/>
-					))}
+					}
 				</View>
 			</View>}
-				 
 		</TouchableOpacity>
 	);
 };
@@ -90,6 +125,17 @@ const styles = StyleSheet.create({
 		marginTop: 115,
 		opacity: 0.1
 	},
+	changeDriverModal: {
+		width: 330,
+		height: "auto",
+		backgroundColor: "#1C2129",
+		marginTop: 20,
+		borderRadius: 16,
+		display: "flex",
+		justifyContent: "space-between",
+		alignItems: "flex-start",
+		padding: 10
+	}
 });
 
 export default Avatar;

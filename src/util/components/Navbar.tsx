@@ -50,7 +50,7 @@ const Navbar = () => {
 				<FlatList
        				data={buttons}
         			renderItem={renderButton}
-        			keyExtractor={(item) => item.name}
+        			keyExtractor={(item) => item.title}
         			numColumns={2}
         			contentContainerStyle={[t.wFull, { flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }]}
       			/>
