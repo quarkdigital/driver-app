@@ -2,18 +2,19 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
-type Props = {
+export type Props = {
     title: string;
     onPress?: () => void;
     imageURL?: any;
 	shape: "square" | "circle";
 	backgroundColor?: "white" | "transparent"
+	marginAroundButton?: number;
 }
 
-const Button = ({ onPress, title, imageURL, shape, backgroundColor }: Props) => (
+const Button = ({ onPress, title, imageURL, shape, backgroundColor, marginAroundButton }: Props) => (
 	<TouchableOpacity
 		onPress={onPress}
-		style={[ shape === "square" ? styles.square : styles.circle, backgroundColor === "white" ? styles.whiteBackground : styles.transparentBackground]}
+		style={[ shape === "square" ? styles.square : styles.circle, backgroundColor === "white" ? styles.whiteBackground : styles.transparentBackground, {margin: marginAroundButton}]}
 	>
         {imageURL && <Image source={imageURL} style={[styles.image]}/>}
 		<Text style={[styles.text, backgroundColor === "white" ? styles.blackText : styles.text]}>

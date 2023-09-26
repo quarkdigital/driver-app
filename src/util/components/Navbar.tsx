@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { t } from "react-native-tailwindcss";
-import Button from "./Button";
+import Button, { Props } from "./Button";
 
 const Navbar = () => {
 	
@@ -9,22 +9,27 @@ const Navbar = () => {
 
 	const buttons = [
 		{
-			name: "Start Break",
-			img: require("/assets/break.png")
+			title: "Start Break",
+			imageURL: require("/assets/break.png")
 		},
 		{
-			name: "Short Pause",
-			img: require("/assets/pause.png")
+			title: "Short Pause",
+			imageURL: require("/assets/pause.png")
 		},
 		{
-			name: "Dispatcher",
-			img: require("/assets/break.png")
+			title: "Dispatcher",
+			imageURL: require("/assets/break.png")
 		},
 		{
-			name: "Daddy I am stuck",
-			img: require("/assets/message.png")
+			title: "Daddy I am stuck",
+			imageURL: require("/assets/message.png")
 		},
 	];
+
+	const renderButton = ({ item }: {item: Props}) => (
+		<Button title={item.title} imageURL={item.imageURL} shape="square" marginAroundButton={10} />
+	  );
+
 	return openModal ? (
 		<View style={[t.w5_12, t.hFull, t.h100, t.flexCol, t.justifyBetween, styles.containerColor, t.itemsCenter]}>
 			<View style={[t.wFull, t.flexRow, t.justifyBetween, t.itemsStart, t.p4]}>
@@ -42,11 +47,13 @@ const Navbar = () => {
 					source={require("../../../assets/logo.png")}
 					style={{ width: 180, height: 180, resizeMode: "contain" }}
 				/>
-				{buttons.map((item) => (
-					<View key={item.name} style={[t.flexRow, t.flexWrap, t.wFull]}>
-						<Button title={item.name} key={item.name} imageURL={item.img} shape="square"/>
-					</View>
-				))}
+				<FlatList
+       				data={buttons}
+        			renderItem={renderButton}
+        			keyExtractor={(item) => item.name}
+        			numColumns={2}
+        			contentContainerStyle={[t.wFull, { flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }]}
+      			/>
 			</View>
 			<Text style={[styles.helpAndSupportText, t.mB4]}>Help & Support</Text>
 		</View>
