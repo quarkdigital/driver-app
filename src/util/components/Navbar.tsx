@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button, { Props } from "./Button";
+import { useNavigation } from "@react-navigation/native";
 
 const Navbar = () => {
-	
+	const navigation = useNavigation();
+
 	const [openModal, setOpenModal] = useState(true);
 
 	const buttons = [
@@ -55,7 +57,7 @@ const Navbar = () => {
         			contentContainerStyle={[t.wFull, { flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }]}
       			/>
 			</View>
-			<Text style={[styles.helpAndSupportText, t.mB4]}>Help & Support</Text>
+			<Text style={[styles.helpAndSupportText, t.mB4]} onPress={() => navigation.navigate("Settings")}>Help & Support</Text>
 		</View>
 	): <TouchableHighlight onPress={() => setOpenModal(!openModal)}>
 		<Image source={require("../../../assets/burger.png")} style={[t.w6, t.h5, t.mT2]} />

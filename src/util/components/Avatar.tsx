@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button from "./Button";
 import DriverCard from "./DriverCard";
 const Avatar = () => {
-	const [modal, setModal] = useState(true);
-	const [changeDriverModal, setChangeDriverModal] = useState(true);
-	
+	const [modal, setModal] = useState(false);
+	const [changeDriverModal, setChangeDriverModal] = useState(false);
+	useEffect(() => {
+		console.log("Modal state:", modal);
+	  }, [modal]);
 	function onChangeDriver() {
 		setChangeDriverModal(!changeDriverModal);
 	}
@@ -50,7 +52,7 @@ const Avatar = () => {
 
 
 	return (
-		<TouchableOpacity onPress={() => setModal(!modal)} style={styles.container}>
+		<TouchableOpacity onPress={() => {setModal(!modal); setChangeDriverModal(false);}} style={styles.container}>
 			<Image source={require("../../../assets/gay.png")} style={[t.wFull, t.hFull, styles.image]} />
 			{modal && <View style={[t.flexCol, t.justifyStart, t.itemsEnd]}>
 				<View style={[!changeDriverModal ? styles.modal : styles.changeDriverModal]}>
@@ -72,7 +74,8 @@ const Avatar = () => {
 					</View>
 					}
 				</View>
-			</View>}
+			</View>
+			}
 		</TouchableOpacity>
 	);
 };
@@ -83,6 +86,9 @@ const styles = StyleSheet.create({
 	   display: "flex",
 	   flexDirection: "column",
 	   alignItems: "flex-end",
+	   position: "absolute",
+	   width: "100%",
+	   zIndex: 10
 	},
 	image: {
 		width: 76,
@@ -101,7 +107,9 @@ const styles = StyleSheet.create({
 		display: "flex",
 		justifyContent: "space-between",
 		alignItems: "center",
-		padding: 25
+		padding: 25,
+		position: "absolute",
+		zIndex: 10,	
 	},
 	polygon: {
 		top: -10,
