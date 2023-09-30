@@ -9,14 +9,19 @@ export type Props = {
 	shape: "square" | "circle";
 	backgroundColor?: "white" | "transparent"
 	marginAroundButton?: number;
+	buttonStyle?: object;
+	iconSize?: {
+		width: number,
+		height: number
+	};
 }
 
-const Button = ({ onPress, title, imageURL, shape, backgroundColor, marginAroundButton }: Props) => (
+const Button = ({ onPress, title, imageURL, shape, backgroundColor, marginAroundButton, buttonStyle, iconSize }: Props) => (
 	<TouchableOpacity
 		onPress={onPress}
-		style={[ shape === "square" ? styles.square : styles.circle, backgroundColor === "white" ? styles.whiteBackground : styles.transparentBackground, {margin: marginAroundButton}]}
+		style={[ shape === "square" ? styles.square : styles.circle, backgroundColor === "white" ? styles.whiteBackground : styles.transparentBackground, {margin: marginAroundButton}, buttonStyle]}
 	>
-        {imageURL && <Image source={imageURL} style={[styles.image]}/>}
+        {imageURL && <Image source={imageURL} style={[styles.image, iconSize]}/>}
 		<Text style={[styles.text, backgroundColor === "white" ? styles.blackText : styles.text]}>
 			{title}
 		</Text>
