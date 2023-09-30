@@ -25,8 +25,8 @@ const Button = ({ onPress, title, imageURL, shape, backgroundColor, marginAround
 
 const styles = StyleSheet.create({
 	square: {
-		width: 128,
-		height: 128,
+		width: 120,
+		height: 120,
 		borderRadius: 16,
 		borderColor: "#FFFFFF",
 		borderWidth: 2,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		color: "#FFF",
-		textAlign: "left",
+		textAlign: "center",
 		fontFamily: "Poppins",
 		fontSize: 16,
 		fontStyle: "normal",

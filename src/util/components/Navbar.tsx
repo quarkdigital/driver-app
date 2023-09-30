@@ -3,12 +3,13 @@ import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from "rea
 import { t } from "react-native-tailwindcss";
 import Button, { Props } from "./Button";
 import { useNavigation } from "@react-navigation/native";
+import NewDriveModal from "./NewDriveModal";
 
 const Navbar = () => {
 	const navigation = useNavigation();
 
 	const [openModal, setOpenModal] = useState(true);
-
+	const [newOrderModal, setNewOrderModal] = useState(true);
 	const buttons = [
 		{
 			title: "Start Break",
@@ -45,10 +46,6 @@ const Navbar = () => {
 				<Text style={[t.textWhite, t.h100, t.textBase]}>12:34</Text>
 			</View>
 			<View style={[t.wFull, t.flexCol, t.justifyBetween, t.itemsCenter, t.hAuto]}>
-				<Image	
-					source={require("../../../assets/logo.png")}
-					style={{ width: 180, height: 180, resizeMode: "contain" }}
-				/>
 				<FlatList
        				data={buttons}
         			renderItem={renderButton}
@@ -57,7 +54,9 @@ const Navbar = () => {
         			contentContainerStyle={[t.wFull, { flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }]}
       			/>
 			</View>
-			<Text style={[styles.helpAndSupportText, t.mB4]} onPress={() => navigation.navigate("Settings")}>Help & Support</Text>
+			{newOrderModal ? <NewDriveModal /> : <View style={[styles.logoContainer]}>
+				<Image source={require("../../../assets/logo.png")} style={styles.logo}/>
+			</View>}
 		</View>
 	): <TouchableHighlight onPress={() => setOpenModal(!openModal)}>
 		<Image source={require("../../../assets/burger.png")} style={[t.w6, t.h5, t.mT2]} />
@@ -96,6 +95,22 @@ const styles = StyleSheet.create({
 		lineHeight: 24,
 		textDecorationLine: "underline",
 	},
+	logoContainer: {
+		backgroundColor: "#242A34",
+	    height: 180,
+		width: "100%",
+	    shadowColor: "rgba(0, 0, 0, 0.12)",
+		shadowOffset: { width: 0, height: 0 },
+		shadowOpacity: 1,
+		shadowRadius: 24,
+		elevation: 2,
+		justifyContent: "center",
+		alignItems: "center" 
+	},
+	logo: {
+		width: 150,
+		height: 50
+	}
 });
 
 export default Navbar;
