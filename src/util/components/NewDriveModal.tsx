@@ -15,7 +15,7 @@ const NewDriveModal = () => {
 					<Text style={greyText}>New York</Text>
 					<Text style={textStyle}>Jadranski put 24</Text>
 					<Text style={[textStyle, { paddingBottom: 20 }]}>Jadranski put 24 • Jadranski put 24</Text>
-					<Button shape="circle" title="Accept(8s)" backgroundColor="white" imageURL={require("../../../assets/check.png")} buttonStyle={{ flexDirection: "row" }} iconSize={{ width: 15, height: 15 }} onPress={() => setAccept(true)} />
+					<Button shape="circle" title="Accept(8s)" backgroundColor="white" imageURL={require("../../../assets/check.png")} buttonStyle={{ flexDirection: "row", width: "97%"}} iconSize={{ width: 15, height: 15 }} onPress={() => setAccept(true)} />
 				</>
 			) : (
 				<View style={[t.flexCol, t.justifyBetween, t.hFull, t.itemsStart]}>

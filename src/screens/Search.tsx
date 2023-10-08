@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import { greyText, textStyle } from "../reusable/styles";
 
