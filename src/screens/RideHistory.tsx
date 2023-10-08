@@ -20,7 +20,7 @@ const RideHistory = () => {
 
 
 	return (
-		<View style={[t.wFull, t.hFull, {backgroundColor: "#242A34"}]}>
+		<View style={[t.wFull, t.hFull, {backgroundColor: "#1C2129"}]}>
 			<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, t.wFull, t.z10]}>
 				<Image source={require("../../assets/logo.png")} style={styles.image} />
 				<Text style={[styles.text]}>Driving History</Text>
