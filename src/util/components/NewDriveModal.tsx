@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
-import { greyText, textStyle } from "../../reusable/styles";
+import { greyText, whiteText } from "../../reusable/styles";
 import Button from "./Button";
-import { useNavigation } from "@react-navigation/native";
 
 const NewDriveModal = () => {
 	const [accept, setAccept] = useState(false);
@@ -13,8 +12,8 @@ const NewDriveModal = () => {
 			{!accept ? (
 				<>
 					<Text style={greyText}>New York</Text>
-					<Text style={textStyle}>Jadranski put 24</Text>
-					<Text style={[textStyle, { paddingBottom: 20 }]}>Jadranski put 24 • Jadranski put 24</Text>
+					<Text style={whiteText}>Jadranski put 24</Text>
+					<Text style={[whiteText, { paddingBottom: 20 }]}>Jadranski put 24 • Jadranski put 24</Text>
 					<Button shape="circle" title="Accept(8s)" backgroundColor="white" imageURL={require("../../../assets/check.png")} buttonStyle={{ flexDirection: "row", width: "97%"}} iconSize={{ width: 15, height: 15 }} onPress={() => setAccept(true)} />
 				</>
 			) : (
@@ -22,11 +21,11 @@ const NewDriveModal = () => {
 					<View style={[t.flexRow, t.justifyBetween, t.wFull, t.itemsStart]}>
 						<View style={[t.flexCol, t.itemsStart, t.pT3, t.pS3]}>
 							<Text style={greyText}>ADDRESS</Text>
-							<Text style={textStyle}>Jadranski Put 24</Text>
+							<Text style={whiteText}>Jadranski Put 24</Text>
 						</View>
 						<View style={[t.flexCol, t.itemsCenter, t.pT3, t.pE3]}>
 							<Text style={greyText}>DISTANCE</Text>
-							<Text style={textStyle}>550M</Text>
+							<Text style={whiteText}>550M</Text>
 						</View>
 					</View>
 					<View style={[t.flexCol, t.justifyBetween, t.itemsCenter, t.mB3, {height: 115}]}>

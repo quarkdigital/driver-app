@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button, { Props } from "./Button";
-import { useNavigation } from "@react-navigation/native";
 import NewDriveModal from "./NewDriveModal";
 
 const Navbar = () => {
-	const navigation = useNavigation();
 
 	const [openModal, setOpenModal] = useState(true);
 	const [newOrderModal, setNewOrderModal] = useState(true);

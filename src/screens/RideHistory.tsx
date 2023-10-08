@@ -21,20 +21,20 @@ const RideHistory = () => {
 
 	return (
 		<View style={[t.wFull, t.hFull, {backgroundColor: "#1C2129"}]}>
-			<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, t.top0, t.wFull, t.z10]}>
+			<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, t.wFull, t.z10]}>
 				<Image source={require("../../assets/logo.png")} style={styles.image} />
-				<Text style={styles.text}>Driving History</Text>
-				<View style={[t.relative, t.mR6]}>
+				<Text style={[styles.text]}>Driving History</Text>
+				<View style={[t.relative, t.hFull, t.pR5, {width: 150}]}>
 					<Avatar />
 				</View>
 			</View>
-			<View style={[t.itemsCenter]}>
+			<View style={[t.itemsCenter, t.pT10]}>
 				<FlatList
 					data={data}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
 						<View style={[styles.row, {paddingVertical: 20}]}>
-							<View style={[t.flexRow, t.itemsCenter, t.justifyBetween, {width: 280}]}>
+							<View style={[t.flexRow, t.itemsCenter, t.justifyBetween, {width: 290}]}>
 								<Text style={styles.text1}>Jadranski Put 24</Text>
 								<Image source={require("../../assets/arrow.png")} style={styles.arrowImage} />
 								<Text style={styles.text1}>Mainski put 21</Text>
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
 		fontStyle: "normal",
 		fontWeight: "700",
 		lineHeight: 20,
+		width: 150
 	},
 	row: {
 		flexDirection: "row",
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 16,
 		backgroundColor: "#242933",
 		borderRadius: 16,
-		width: 740
+		width: 760
 	  },
 	  headerText: {
 		flex: 1,
