@@ -9,7 +9,7 @@ const NewDriveModal = () => {
 	const [setlocationButton, setSetlocationButton] = useState(false);
 
 	return (
-		<View style={[t.flexCol, t.justifyCenter, styles.newDriveModal, !accept ? styles.borderLeftGreen : styles.borderTopGreen, t.itemsStart, t.pS2]}>
+		<View style={[t.flexCol, t.justifyCenter, styles.newDriveModal, !accept ? [styles.borderLeftGreen, t.itemsStart] : styles.borderTopGreen, t.pS2]}>
 			{!accept ? (
 				<>
 					<Text style={greyText}>New York</Text>
