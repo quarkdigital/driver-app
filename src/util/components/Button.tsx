@@ -30,8 +30,8 @@ const Button = ({ onPress, title, imageURL, shape, backgroundColor, marginAround
 
 const styles = StyleSheet.create({
 	square: {
-		width: 120,
-		height: 120,
+		width: 130,
+		height: 130,
 		borderRadius: 16,
 		borderColor: "#FFFFFF",
 		borderWidth: 2,

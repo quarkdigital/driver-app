@@ -11,7 +11,7 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator 
-				initialRouteName="Ride History"
+				initialRouteName="Settings"
 				screenOptions={{headerShown: false}}>
 				<Stack.Screen 
 					name="Home"
