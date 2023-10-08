@@ -4,7 +4,6 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import SettingsAndHelp from "./src/screens/SettingsAndHelp";
 import RideHistory from "./src/screens/RideHistory";
-import Search from "./src/screens/Search";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,9 +22,6 @@ export default function App() {
 				/>
 				<Stack.Screen name="Ride History"
 					component={RideHistory}
-				/>
-				<Stack.Screen name="Search"
-					component={Search}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>

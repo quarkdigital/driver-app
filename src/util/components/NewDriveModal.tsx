@@ -7,8 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 
 const NewDriveModal = () => {
 	const [accept, setAccept] = useState(false);
-	
-	const navigation = useNavigation();
 
 	return (
 		<View style={[t.flexCol, t.justifyCenter, styles.newDriveModal, !accept ? [styles.borderLeftGreen, t.itemsStart] : styles.borderTopGreen, t.pS2]}>
@@ -32,7 +30,7 @@ const NewDriveModal = () => {
 						</View>
 					</View>
 					<View style={[t.flexCol, t.justifyBetween, t.itemsCenter, t.mB3, {height: 115}]}>
-						<Button title="Set Location" backgroundColor="white" shape="circle" onPress={() =>  navigation.navigate("Search")} />
+						<Button title="Set Location" backgroundColor="white" shape="circle" />
 						<Button title="Cancel Ride" backgroundColor="transparent" shape="circle" />
 					</View>				
 				</View>

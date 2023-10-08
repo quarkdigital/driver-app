@@ -15,4 +15,4 @@ export const greyText = {
 	fontStyle: "normal",
 	fontWeight: "400",
 	lineHeight: 20,
-}
+};
