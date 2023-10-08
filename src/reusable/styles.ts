@@ -1,4 +1,4 @@
-export const textStyle = {
+export const whiteText = {
 	color: "#FFF",
 	textAlign: "center",
 	fontFamily: "Poppins",
