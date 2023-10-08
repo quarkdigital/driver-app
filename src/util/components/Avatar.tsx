@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 	   alignItems: "flex-end",
 	   position: "absolute",
 	   width: "100%",
-	   zIndex: 10
+	   zIndex: 10,
 	},
 	image: {
 		width: 76,
@@ -110,6 +110,10 @@ const styles = StyleSheet.create({
 		padding: 25,
 		position: "absolute",
 		zIndex: 10,	
+		shadowColor: "#171717",
+		shadowOffset: {width: 0, height: 0},
+		shadowOpacity: 1,
+		shadowRadius: 20,
 	},
 	polygon: {
 		top: -10,
