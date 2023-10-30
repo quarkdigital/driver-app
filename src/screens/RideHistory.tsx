@@ -30,6 +30,18 @@ const RideHistory = () => {
 			</View>
 			<View style={[t.itemsCenter, t.pT10]}>
 				<FlatList
+					ListHeaderComponent={() => (
+						<View style={styles.header}>
+							<Text style={styles.text1}>
+						Relation
+							</Text>
+							<View style={[t.flexRow, t.itemsCenter, t.justifyBetween,{width: 400, paddingVertical: 5}]}>
+								{navbarTitles.map((item) => (
+									<Text key={item.name} style={[t.w32, styles.text1, item.style]}>{item.name}</Text>
+								))}
+							</View>
+						</View>
+					)}
 					data={data}
 					keyExtractor={(item) => item.id}
 					renderItem={({ item }) => (
@@ -44,18 +56,6 @@ const RideHistory = () => {
 								<Text style={[t.w32, styles.text1]}>4.6km</Text>
 								<Text style={[t.w32, styles.text1]}>18min</Text>
 								<Text style={[t.w32, styles.text1, {textAlign: "right"}]}>14:56 - 13:14</Text>
-							</View>
-						</View>
-					)}
-					ListHeaderComponent={() => (
-						<View style={styles.header}>
-							<Text style={styles.text1}>
-							Relation
-							</Text>
-							<View style={[t.flexRow, t.itemsCenter, t.justifyBetween,{width: 400, paddingVertical: 5}]}>
-								{navbarTitles.map((item) => (
-									<Text key={item.name} style={[t.w32, styles.text1, item.style]}>{item.name}</Text>
-								))}
 							</View>
 						</View>
 					)}
