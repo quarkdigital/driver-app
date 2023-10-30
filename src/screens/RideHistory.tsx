@@ -41,9 +41,9 @@ const RideHistory = () => {
 							</View>	
 							<View style={[t.flexRow, t.itemsCenter, t.justifyBetween, {width: 400}]}>
 								<Text style={[t.w32, styles.text1]}>3.55€</Text>
-								<Text style={[styles.text1, t.w32, styles.text1]}>4.6km</Text>
-								<Text style={[styles.text1, t.w32, styles.text1]}>18min</Text>
-								<Text style={[styles.text1, t.w32, styles.text1, {textAlign: "right"}]}>14:56 - 13:14</Text>
+								<Text style={[t.w32, styles.text1]}>4.6km</Text>
+								<Text style={[t.w32, styles.text1]}>18min</Text>
+								<Text style={[t.w32, styles.text1, {textAlign: "right"}]}>14:56 - 13:14</Text>
 							</View>
 						</View>
 					)}
