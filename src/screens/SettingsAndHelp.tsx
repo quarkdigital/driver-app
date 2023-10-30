@@ -42,8 +42,8 @@ const SettingsAndHelp = () => {
 
 const styles = StyleSheet.create({
 	image: {
-		width: "150px",
-		height: "50px",
+		width: 150,
+		height: 50,
 		marginLeft: 30,
 		marginTop: 20
 	}
