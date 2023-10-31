@@ -29,7 +29,7 @@ const Navbar = () => {
 	];
 
 	const renderButton = ({ item }: {item: Props}) => (
-		<Button title={item.title} imageURL={item.imageURL} shape="square" marginAroundButton={10} />
+		<Button title={item.title} imageURL={item.imageURL} shape="square" marginAroundButton={10} buttonTextStyle={{padding: 5}}/>
 	  );
 
 	return openModal ? (
@@ -50,7 +50,7 @@ const Navbar = () => {
         			renderItem={renderButton}
         			keyExtractor={(item) => item.title}
         			numColumns={2}
-        			contentContainerStyle={[t.wFull, { flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }]}
+        			contentContainerStyle={[t.wFull, { flexDirection: "row", flexWrap: "wrap", justifyContent: "center",  }]}
       			/>
 			</View>
 			{newOrderModal ? <NewDriveModal /> : <View style={[styles.logoContainer]}>
