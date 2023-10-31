@@ -2,10 +2,11 @@ import React from "react";
 import Navbar from "../util/components/Navbar";
 import { View } from "react-native";
 import { t } from "react-native-tailwindcss";
-const MainScreen = () => {
+
+function MainScreen() {
 	return (
 		<View style={[t.wFull, t.hFull]}>
-		    <Navbar />
+			<Navbar />
 		</View>
 	);
 }

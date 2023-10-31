@@ -4,13 +4,13 @@ import { t } from "react-native-tailwindcss";
 import { reusableStyles } from "../Styles";
 
 export type Props = {
-    name: string;
-    imageURL: any;
-    active: string;
+	name: string;
+	imageURL: any;
+	active: string;
 	index: number;
-} 
+};
 
-const DriverCard = ({name, imageURL, active, index}: Props) => {
+function DriverCard({ name, imageURL, active, index }: Props) {
 	return (
 		<View style={[t.flexRow, t.itemsStart, t.justifyStart, t.p4]}>
 			<Image source={imageURL} style={styles.image} />
@@ -21,7 +21,7 @@ const DriverCard = ({name, imageURL, active, index}: Props) => {
 			<View style={index === 0 ? styles.noSeparator : styles.separator}></View>
 		</View>
 	);
-};
+}
 
 const styles = StyleSheet.create({
 	image: {
@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
 		borderRadius: 50
 	},
 	status: {
-		color:"rgba(255, 255, 255, 0.70)",
+		color: "rgba(255, 255, 255, 0.70)",
 		fontFamily: "Poppins",
 		fontSize: 14,
 		fontStyle: "normal",
 		fontWeight: "400",
 		lineHeight: 20,
-		paddingTop: 5,
+		paddingTop: 5
 	},
 	separator: {
 		borderBottomWidth: 1,
