@@ -4,7 +4,7 @@ import Button from "../util/components/Button";
 import { t } from "react-native-tailwindcss";
 import Avatar from "../util/components/Avatar";
 import { useNavigation } from "@react-navigation/native";
-
+import { reusableStyles } from "../util/Styles";
 const SettingsAndHelp = () => {
 	const navigation = useNavigation();
 	const buttons = [
@@ -24,14 +24,14 @@ const SettingsAndHelp = () => {
 
 	];
 	return (
-		<View style={[t.wFull, t.hFull, t.flexCol, t.overflowHidden, t.justifyCenter, {backgroundColor: "#1C2129"}]}>
+		<View style={[t.wFull, t.hFull, t.flexCol, t.overflowHidden, t.justifyCenter, reusableStyles.backgroundColor]}>
 			<View style={[t.flexRow, t.justifyBetween, t.absolute, t.top0, t.wFull, t.z10]}>
 				<Image source={require("../../assets/logo.png")} style={styles.image} />
 				<View style={[t.absolute, t.right0, t.top0, t.pR6]}>
 					<Avatar />
 				</View>
 			</View>
-			<View style={[t.wFull, t.hFull, t.flexRow, t.justifyCenter, t.itemsCenter, ]}>
+			<View style={[t.wFull, t.hFull, t.flexRow, t.justifyCenter, t.itemsCenter]}>
 				{buttons.map((item) => (	
 					<Button key={item.title} shape="square" title={item.title} imageURL={item.imageURL} marginAroundButton={50} onPress={item.onPress}/>
 				))}

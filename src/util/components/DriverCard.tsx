@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
+import { reusableStyles } from "../Styles";
 
 export type Props = {
     name: string;
@@ -14,7 +15,7 @@ const DriverCard = ({name, imageURL, active, index}: Props) => {
 		<View style={[t.flexRow, t.itemsStart, t.justifyStart, t.p4]}>
 			<Image source={imageURL} style={styles.image} />
 			<View style={[t.flexCol, t.justifyCenter, t.itemsStart, t.pS3]}>
-				<Text style={styles.name}>{name}</Text>
+				<Text style={[reusableStyles.smallWhiteText, { fontWeight: "500" }]}>{name}</Text>
 				<Text style={styles.status}>{active}</Text>
 			</View>
 			<View style={index === 0 ? styles.noSeparator : styles.separator}></View>
@@ -27,14 +28,6 @@ const styles = StyleSheet.create({
 		width: 50,
 		height: 50,
 		borderRadius: 50
-	},
-	name: {
-		color: "#FFFFFF",
-		fontFamily: "Poppins",
-		fontSize: 18,
-		fontStyle: "normal",
-		fontWeight: "500",
-		lineHeight: 20,
 	},
 	status: {
 		color:"rgba(255, 255, 255, 0.70)",

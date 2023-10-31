@@ -1,13 +1,14 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-	assets: ["./assets/fonts"],
-	content: [],
 	theme: {
-		fontFamily: {
+	  fontFamily: {
 			display: "Poppins",
 			body: "Poppins",
-		},
+	  },
+	  extend: {
+			colors: {
+		  	cyan: "#9cdbff",
+			},			
+	  }
 	},
-	plugins: [],
 };
-
+  

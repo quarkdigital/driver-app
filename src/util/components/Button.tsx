@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { reusableStyles } from "../Styles";
 
 export type Props = {
     title: string;
@@ -14,15 +15,16 @@ export type Props = {
 		width: number,
 		height: number
 	};
+	buttonTextStyle?: object
 }
 
-const Button = ({ onPress, title, imageURL, shape, backgroundColor, marginAroundButton, buttonStyle, iconSize }: Props) => (
+const Button = ({ onPress, title, imageURL, shape, backgroundColor, marginAroundButton, buttonStyle, iconSize, buttonTextStyle }: Props) => (
 	<TouchableOpacity
 		onPress={onPress}
-		style={[ shape === "square" ? styles.square : styles.circle, backgroundColor === "white" ? styles.whiteBackground : styles.transparentBackground, {margin: marginAroundButton}, buttonStyle]}
+		style={[ shape === "square" ? styles.square : styles.circle, backgroundColor === "white" ? reusableStyles.whiteBackground : styles.transparentBackground, {margin: marginAroundButton}, buttonStyle]}
 	>
         {imageURL && <Image source={imageURL} style={[styles.image, iconSize]}/>}
-		<Text style={[styles.text, backgroundColor === "white" ? styles.blackText : styles.text]}>
+		<Text style={[buttonTextStyle, backgroundColor === "white" ? reusableStyles.smallBlackText : reusableStyles.smallWhiteText]}>
 			{title}
 		</Text>
 	</TouchableOpacity>
@@ -49,15 +51,6 @@ const styles = StyleSheet.create({
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "center"
-	},
-	text: {
-		color: "#FFF",
-		textAlign: "center",
-		fontFamily: "Poppins",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "700",
-		lineHeight: 24,
 	},
 	blackText: {
 		color: "#000000",

@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button from "./Button";
 import DriverCard from "./DriverCard";
+import { reusableStyles } from "../Styles";
 const Avatar = () => {
 	const [modal, setModal] = useState(false);
 	const [changeDriverModal, setChangeDriverModal] = useState(false);
@@ -60,7 +61,7 @@ const Avatar = () => {
 					{!changeDriverModal && <>
 						<View style={[t.flexCol, t.justifyCenter, t.itemsCenter]}>
 							<Image source={require("../../../assets/gay.png")} style={[t.wFull, t.hFull, t.border, styles.image, t.borderX0, t.borderY0]} />
-							<Text style={styles.text}>George Popovic</Text>
+							<Text style={[reusableStyles.mediumText, t.mT2]}>George Popovic</Text>
 						</View><View style={styles.separator}></View>
 						{buttons.map((item) => (
 							<Button key={item.name} title={item.name} shape="circle" backgroundColor={item.backgroundColor} onPress={item.onPress}/>
@@ -119,16 +120,7 @@ const styles = StyleSheet.create({
 		top: -10,
 		right: 17
 	},
-	text: {
-		color:"#FFF",
-		textAlign: "center",
-		fontFamily: "Poppins",
-		fontSize: 18,
-		fontStyle: "normal",
-		fontWeight: "500",
-		lineHeight: 24,
-		marginTop: 10
-	},
+	
 	separator: {
 		borderColor: "#FFFFFF",
 		borderWidth: 1,
@@ -137,6 +129,7 @@ const styles = StyleSheet.create({
 		marginTop: 115,
 		opacity: 0.1
 	},
+	
 	changeDriverModal: {
 		width: 330,
 		height: "auto",
