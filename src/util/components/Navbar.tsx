@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { FlatList, Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import { FlatList, Image, StyleSheet, TouchableHighlight, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button, { Props } from "./Button";
 import NewDriveModal from "./NewDriveModal";
-import { reusableStyles } from "../Styles";
-
+import { reusableStyles } from "../styles";
+import CustomText from "./CustomText";
+import SquareButton from "./SquareButton";
 function Navbar() {
 	const [openModal, setOpenModal] = useState(true);
 	const [newOrderModal, setNewOrderModal] = useState(true);
@@ -28,8 +29,8 @@ function Navbar() {
 	];
 
 	const renderButton = ({ item }: { item: Props }) => (
-		<Button
-			title={item.title}
+		<SquareButton
+			label={item.title}
 			imageURL={item.imageURL}
 			shape="square"
 			marginAroundButton={10}
@@ -56,10 +57,10 @@ function Navbar() {
 					/>
 				</TouchableHighlight>
 				<View style={[t.flexCol]}>
-					<Text style={[reusableStyles.xsWhiteText, { fontWeight: "300" }]}>Status:</Text>
-					<Text style={[t.textWhite, styles.statusReady]}>Ready</Text>
+					<CustomText>Status:</CustomText>
+					<CustomText>Ready</CustomText>
 				</View>
-				<Text style={[t.textWhite, t.h100, t.textBase]}>12:34</Text>
+				<CustomText style={[t.textWhite, t.h100, t.textBase]}>12:34</CustomText>
 			</View>
 			<View style={[t.wFull, t.flexCol, t.justifyBetween, t.itemsCenter, t.hAuto]}>
 				<FlatList

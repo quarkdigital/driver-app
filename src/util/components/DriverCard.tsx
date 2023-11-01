@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
-import { reusableStyles } from "../Styles";
+import { reusableStyles } from "../styles";
 
 export type Props = {
 	name: string;

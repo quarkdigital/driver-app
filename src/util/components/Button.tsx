@@ -1,14 +1,14 @@
 /* eslint-disable indent */
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { reusableStyles } from "../Styles";
+import { reusableStyles } from "../styles";
+import CustomText from "./CustomText";
 
 export type Props = {
-	title: string;
+	label: string;
 	onPress?: () => void;
-	imageURL?: any;
-	shape: "square" | "circle";
-	backgroundColor?: "white" | "transparent";
+	imageUrl?: any;
+	primary: boolean;	
 	marginAroundButton?: number;
 	buttonStyle?: object;
 	iconSize?: {
@@ -20,52 +20,31 @@ export type Props = {
 
 function Button({
 	onPress,
-	title,
-	imageURL,
-	shape,
-	backgroundColor,
+	label,
+	imageUrl,
+	primary,
 	marginAroundButton,
 	buttonStyle,
-	iconSize,
-	buttonTextStyle
+	iconSize
 }: Props) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
 			style={[
-				shape === "square" ? styles.square : styles.circle,
-				backgroundColor === "white"
-					? reusableStyles.whiteBackground
-					: styles.transparentBackground,
+				styles.circle,
+				primary ? reusableStyles.whiteBackground : styles.transparentBackground,
 				{ margin: marginAroundButton },
 				buttonStyle
 			]}>
-			{imageURL && <Image source={imageURL} style={[styles.image, iconSize]} />}
-			<Text
-				style={[
-					buttonTextStyle,
-					backgroundColor === "white"
-						? reusableStyles.smallBlackText
-						: reusableStyles.smallWhiteText
-				]}>
-				{title}
-			</Text>
+			{imageUrl && <Image source={{uri: imageUrl}} style={[styles.image, iconSize]} />}
+			<CustomText primary={ primary ? false : true }>
+				{label}	
+			</CustomText>
 		</TouchableOpacity>
 	);
 }
 
 const styles = StyleSheet.create({
-	square: {
-		width: 130,
-		height: 130,
-		borderRadius: 16,
-		borderColor: "#FFFFFF",
-		borderWidth: 2,
-		display: "flex",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center"
-	},
 	circle: {
 		width: 300,
 		height: 50,

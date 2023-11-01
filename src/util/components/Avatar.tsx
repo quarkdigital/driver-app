@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button from "./Button";
 import DriverCard from "./DriverCard";
-import { reusableStyles } from "../Styles";
+import { reusableStyles } from "../styles";
 
 function Avatar() {
 	const [modal, setModal] = useState(false);
@@ -171,9 +171,9 @@ const styles = StyleSheet.create({
 	},
 
 	changeDriverModal: {
+		...reusableStyles.backgroundColor,
 		width: 330,
 		height: "auto",
-		backgroundColor: "#1C2129",
 		marginTop: 20,
 		borderRadius: 16,
 		display: "flex",

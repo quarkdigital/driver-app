@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button from "./Button";
-import { reusableStyles } from "../Styles";
+import { reusableStyles } from "../styles";
+import CustomText from "./CustomText";
 
 function NewDriveModal() {
 	const [accept, setAccept] = useState(false);
@@ -27,7 +28,7 @@ function NewDriveModal() {
 					</Text>
 					<Button
 						shape="circle"
-						title="Accept(8s)"
+						label="Accept(8s)"
 						backgroundColor="white"
 						imageURL={require("../../../assets/check.png")}
 						buttonStyle={{ flexDirection: "row", width: "97%" }}
@@ -40,12 +41,12 @@ function NewDriveModal() {
 				<View style={[t.flexCol, t.justifyBetween, t.hFull, t.itemsStart]}>
 					<View style={[t.flexRow, t.justifyBetween, t.wFull, t.itemsStart]}>
 						<View style={[t.flexCol, t.itemsStart, t.pT3, t.pS3]}>
-							<Text style={[]}>ADDRESS</Text>
-							<Text style={[reusableStyles.smallWhiteText]}>Jadranski Put 24</Text>
+							<CustomText primary={true} fontWeight="700">ADDRESS</CustomText>
+							<CustomText primary={true} fontWeight="700">Jadranski Put 24</CustomText>
 						</View>
 						<View style={[t.flexCol, t.itemsCenter, t.pT3, t.pE3]}>
-							<Text style={[]}>DISTANCE</Text>
-							<Text style={[reusableStyles.smallWhiteText]}>550M</Text>
+							<CustomText primary={true}>DISTANCE</CustomText>
+							<CustomText primary={true}>550M</CustomText>
 						</View>
 					</View>
 					<View
@@ -56,8 +57,8 @@ function NewDriveModal() {
 							t.mB3,
 							{ height: 115 }
 						]}>
-						<Button title="Set Location" backgroundColor="white" shape="circle" />
-						<Button title="Cancel Ride" backgroundColor="transparent" shape="circle" />
+						<Button label="Set Location" backgroundColor="white" />
+						<Button label="Cancel Ride" backgroundColor="transparent" />
 					</View>
 				</View>
 			)}

@@ -2,7 +2,7 @@ import React from "react";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Avatar from "../util/components/Avatar";
-import { reusableStyles } from "../util/Styles";
+import { reusableStyles } from "../util/styles";
 
 function RideHistory() {
 	const data = [

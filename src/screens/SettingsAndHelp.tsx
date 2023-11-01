@@ -4,7 +4,7 @@ import Button from "../util/components/Button";
 import { t } from "react-native-tailwindcss";
 import Avatar from "../util/components/Avatar";
 import { useNavigation } from "@react-navigation/native";
-import { reusableStyles } from "../util/Styles";
+import { reusableStyles } from "../util/styles";
 
 function SettingsAndHelp() {
 	const navigation = useNavigation();
