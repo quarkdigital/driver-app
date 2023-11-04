@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList, Image, StyleSheet, TouchableHighlight, View } from "react-native";
+import { FlatList, Image, SectionList, StyleSheet, TouchableHighlight, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button, { Props } from "./Button";
 import NewDriveModal from "./NewDriveModal";
@@ -7,38 +7,19 @@ import { reusableStyles } from "../styles";
 import CustomText from "./CustomText";
 import SquareButton from "./SquareButton";
 function Navbar() {
-	const [openModal, setOpenModal] = useState(true);
 	const [newOrderModal, setNewOrderModal] = useState(true);
 	const buttons = [
 		{
-			title: "Start Break",
-			imageURL: require("/assets/break.png")
+			title: "Pauza",
+			imageURL: require("/assets/pause.png"),
 		},
 		{
-			title: "Short Pause",
-			imageURL: require("/assets/pause.png")
+			title: "Resetuj Bluetooth",
+			imageURL: require("/assets/bluetooth.png"),
 		},
-		{
-			title: "Dispatcher",
-			imageURL: require("/assets/break.png")
-		},
-		{
-			title: "Daddy I am stuck",
-			imageURL: require("/assets/message.png")
-		}
 	];
 
-	const renderButton = ({ item }: { item: Props }) => (
-		<SquareButton
-			label={item.title}
-			imageURL={item.imageURL}
-			shape="square"
-			marginAroundButton={10}
-			buttonTextStyle={{ padding: 5 }}
-		/>
-	);
-
-	return openModal ? (
+	return (
 		<View
 			style={[
 				t.w5_12,
@@ -50,29 +31,27 @@ function Navbar() {
 				reusableStyles.backgroundColor
 			]}>
 			<View style={[t.wFull, t.flexRow, t.justifyBetween, t.itemsStart, t.p4]}>
-				<TouchableHighlight onPress={() => setOpenModal(!openModal)}>
-					<Image
-						source={require("../../../assets/burger.png")}
-						style={[t.w6, t.h5, t.mT2]}
-					/>
-				</TouchableHighlight>
 				<View style={[t.flexCol]}>
-					<CustomText>Status:</CustomText>
-					<CustomText>Ready</CustomText>
+					<CustomText primary={true}>Time:</CustomText>
+					<CustomText primary={true}>12:24</CustomText>
 				</View>
-				<CustomText style={[t.textWhite, t.h100, t.textBase]}>12:34</CustomText>
+				<View style={[t.flexCol]}>
+					<CustomText primary={true}>Status:</CustomText>
+					<CustomText primary={true}>Driving</CustomText>
+				</View>
 			</View>
-			<View style={[t.wFull, t.flexCol, t.justifyBetween, t.itemsCenter, t.hAuto]}>
-				<FlatList
-					data={buttons}
-					renderItem={renderButton}
-					keyExtractor={item => item.title}
-					numColumns={2}
-					contentContainerStyle={[
-						t.wFull,
-						{ flexDirection: "row", flexWrap: "wrap", justifyContent: "center" }
-					]}
-				/>
+			<View style={[t.flexCol, t.itemsCenter, t.justifyStart, {height: 400}]}>
+				<Image source={require("../../../assets/logo.png")} style={{width: 150, height: 120, resizeMode: "contain"}}/>
+				<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, {width: 280}]}>
+					{buttons.map((button) => (
+						<SquareButton
+							key={button.imageURL}
+							label={button.title}
+							imageUrl={button.imageURL}
+							onPress={() => console.log("marko")}
+						/>
+					))}
+				</View>
 			</View>
 			{newOrderModal ? (
 				<NewDriveModal />
@@ -82,10 +61,6 @@ function Navbar() {
 				</View>
 			)}
 		</View>
-	) : (
-		<TouchableHighlight onPress={() => setOpenModal(!openModal)}>
-			<Image source={require("../../../assets/burger.png")} style={[t.w6, t.h5, t.mT2]} />
-		</TouchableHighlight>
 	);
 }
 

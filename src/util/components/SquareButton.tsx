@@ -11,7 +11,7 @@ type Props = {
 function SquareButton({onPress, label, imageUrl}: Props) {
 	return (
 		<TouchableOpacity style={[styles.square]} onPress={onPress}>
-			<Image source={{uri: imageUrl}} />
+			<Image source={{uri: imageUrl}} style={{width: 40, height: 40, resizeMode: "contain"}}/>
 			<CustomText primary={true}>{label}</CustomText>
 		</TouchableOpacity>
 	);
