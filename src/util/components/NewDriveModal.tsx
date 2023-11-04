@@ -12,13 +12,11 @@ function NewDriveModal() {
 		<View
 			style={[
 				t.flexCol,
-				t.justifyCenter,
 				styles.newDriveModal,
 				!accept ? [styles.borderLeftGreen, t.itemsStart] : styles.borderTopGreen,
-				t.pS3
 			]}>
 			{!accept ? (
-				<>
+				<View style={[t.pS3, t.itemsStart, t.justifyCenter, t.hFull]}>
 					<Text style={[reusableStyles.greyText, t.mB1]}>New Ride</Text>
 					<CustomText primary={true}>
 						Jadranski put 24
@@ -34,17 +32,17 @@ function NewDriveModal() {
 						iconSize={{ width: 15, height: 15 }}
 						onPress={() => setAccept(true)}
 					/>
-				</>
+				</View>
 			) : (
 				<View style={[t.flexCol, t.justifyBetween, t.hFull, t.itemsStart]}>
 					<View style={[t.flexRow, t.justifyBetween, t.wFull, t.itemsStart]}>
-						<View style={[t.flexCol, t.itemsStart, t.pT3, t.pS3]}>
-							<CustomText primary={true} fontWeight="700">ADDRESS</CustomText>
-							<CustomText primary={true} fontWeight="700">Jadranski Put 24</CustomText>
+						<View style={[t.flexCol, t.itemsStart, t.pT1]}>
+							<Text style={reusableStyles.greyText}>ADDRESS</Text>
+							<CustomText primary={true}>Jadranski Put 24</CustomText>
 						</View>
-						<View style={[t.flexCol, t.itemsCenter, t.pT3, t.pE3]}>
-							<CustomText primary={true}>DISTANCE</CustomText>
-							<CustomText primary={true}>550M</CustomText>
+						<View style={[t.flexCol, t.itemsCenter, t.pT1]}>
+							<Text style={reusableStyles.greyText}>DISTANCE</Text>
+							<CustomText primary={true} fontWeight="700">550M</CustomText>
 						</View>
 					</View>
 					<View
@@ -52,11 +50,11 @@ function NewDriveModal() {
 							t.flexCol,
 							t.justifyBetween,
 							t.itemsCenter,
-							t.mB3,
-							{ height: 115 }
+							t.mT2,
+							{ height: 110 }
 						]}>
-						<Button label="Set Location" backgroundColor="white" />
-						<Button label="Cancel Ride" backgroundColor="transparent" />
+						<Button label="Set Location" primary={true} />
+						<Button label="Cancel Ride" primary={false} />
 					</View>
 				</View>
 			)}
@@ -88,8 +86,8 @@ const styles = StyleSheet.create({
 		shadowOpacity: 1,
 		shadowRadius: 24,
 		elevation: 2,
-		justifyContent: "center",
-		alignItems: "center"
+		justifyContent: "flex-start",
+		alignItems: "center",
 	}
 });
 
