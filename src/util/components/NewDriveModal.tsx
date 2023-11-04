@@ -15,26 +15,24 @@ function NewDriveModal() {
 				t.justifyCenter,
 				styles.newDriveModal,
 				!accept ? [styles.borderLeftGreen, t.itemsStart] : styles.borderTopGreen,
-				t.pS2
+				t.pS3
 			]}>
 			{!accept ? (
 				<>
-					<Text style={[reusableStyles.greyText, t.mB2]}>New Ride</Text>
-					<Text style={[reusableStyles.mediumText, t.pB1, t.fontLight]}>
+					<Text style={[reusableStyles.greyText, t.mB1]}>New Ride</Text>
+					<CustomText primary={true}>
 						Jadranski put 24
-					</Text>
-					<Text style={[reusableStyles.mediumText, t.pB5, t.fontLight]}>
+					</CustomText>
+					<CustomText primary={true}>
 						3.2 km • 3.5min
-					</Text>
+					</CustomText>
 					<Button
-						shape="circle"
 						label="Accept(8s)"
-						backgroundColor="white"
-						imageURL={require("../../../assets/check.png")}
-						buttonStyle={{ flexDirection: "row", width: "97%" }}
+						primary={true}
+						imageUrl={require("../../../assets/check.png")}
+						buttonStyle={{ flexDirection: "row", width: "310px", marginTop: 10 }}
 						iconSize={{ width: 15, height: 15 }}
 						onPress={() => setAccept(true)}
-						buttonTextStyle={{ paddingLeft: 5 }}
 					/>
 				</>
 			) : (
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
 	},
 	newDriveModal: {
 		backgroundColor: "#242A34",
-		height: 200,
+		height: 170,
 		width: "100%",
 		shadowColor: "rgba(0, 0, 0, 0.12)",
 		shadowOffset: { width: 0, height: 0 },
