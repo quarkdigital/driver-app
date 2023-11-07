@@ -6,9 +6,10 @@ type Props = {
     onPress: () => void;
     label: string;
 	imageUrl: string;
+	mobile: boolean;
 }
 
-function SquareButton({onPress, label, imageUrl}: Props) {
+function SquareButton({onPress, label, imageUrl, mobile}: Props) {
 	return (
 		<TouchableOpacity style={[styles.square]} onPress={onPress}>
 			<Image source={{uri: imageUrl}} style={{width: 40, height: 40, resizeMode: "contain"}}/>

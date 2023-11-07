@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import { FlatList, Image, SectionList, StyleSheet, TouchableHighlight, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
-import Button, { Props } from "./Button";
 import NewDriveModal from "./NewDriveModal";
 import { reusableStyles } from "../styles";
 import CustomText from "./CustomText";
 import SquareButton from "./SquareButton";
-function Navbar() {
+import Button from "./Button";
+
+export type Props = {
+	mobile?: boolean;
+	acceptedRide?: boolean;
+}
+
+function Navbar({mobile, acceptedRide}: Props) {
 	const [newOrderModal, setNewOrderModal] = useState(true);
 	const buttons = [
 		{
@@ -18,18 +24,11 @@ function Navbar() {
 			imageURL: require("/assets/bluetooth.png"),
 		},
 	];
+	
 
 	return (
 		<View
-			style={[
-				t.w5_12,
-				t.hFull,
-				t.h100,
-				t.flexCol,
-				t.justifyBetween,
-				t.itemsCenter,
-				reusableStyles.backgroundColor
-			]}>
+			style={[styles.container]}>
 			<View style={[t.wFull, t.flexRow, t.justifyBetween, t.itemsStart, t.p4]}>
 				<View style={[t.flexCol]}>
 					<CustomText primary={true}>Time:</CustomText>
@@ -40,8 +39,8 @@ function Navbar() {
 					<CustomText primary={true}>Driving</CustomText>
 				</View>
 			</View>
-			<View style={[t.flexCol, t.itemsCenter, t.justifyStart, {height: 400}]}>
-				<Image source={require("../../../assets/logo.png")} style={{width: 150, height: 120, resizeMode: "contain"}}/>
+			{!acceptedRide ? (<View style={[t.flexCol, t.itemsCenter, t.justifyStart, {height: 400}]}>
+				{!mobile && <Image source={require("../../../assets/logo.png")} style={mobile ? styles.logoLandscape : styles.logoNormal} />}
 				<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, {width: 280}]}>
 					{buttons.map((button) => (
 						<SquareButton
@@ -49,15 +48,29 @@ function Navbar() {
 							label={button.title}
 							imageUrl={button.imageURL}
 							onPress={() => console.log("marko")}
+							mobile={mobile}
 						/>
 					))}
 				</View>
-			</View>
-			{newOrderModal ? (
+			</View> 
+			) : (
+				<View style={[t.flexCol, t.justifyBetween, t.itemsCenter]}>
+					<View style={[t.flexCol, t.justifyCenter, t.itemsCenter]}>
+						<CustomText primary={true}>Jadranski Put 25</CustomText>
+						<CustomText primary={true} fontWeight="900"> 550 M</CustomText>
+						<Text style={reusableStyles.greyText}>Distance</Text>
+					</View>
+					<View style={[t.flexCol, t.justifyCenter, t.itemsCenter]}>
+						<Button label="Set Location" primary={true} buttonStyle={{width: 250, marginBottom: 10}} />
+						<Button label="Cancel Ride" primary={false} buttonStyle={{width: 250}} />
+					</View>
+				</View>	
+			)}
+			{newOrderModal && !mobile ? (
 				<NewDriveModal />
 			) : (
-				<View style={[styles.logoContainer]}>
-					<Image source={require("../../../assets/logo.png")} style={styles.logo} />
+				!mobile && !acceptedRide && <View style={!mobile ? styles.logoContainer : ""}>
+					<Image source={require("../../../assets/logo.png")} style={styles.logoLandscape} />
 				</View>
 			)}
 		</View>
@@ -65,6 +78,15 @@ function Navbar() {
 }
 
 const styles = StyleSheet.create({
+	container: {
+		...t.w5_12,
+		...t.hFull,
+		...t.h100,
+		...t.flexCol,
+		...t.justifyBetween,
+		...t.itemsCenter,
+		...reusableStyles.backgroundColor
+	},
 	statusReady: {
 		color: "#80F17E",
 		textAlign: "center",
@@ -100,7 +122,15 @@ const styles = StyleSheet.create({
 	logo: {
 		width: 150,
 		height: 50
-	}
+	},
+	logoNormal: {
+		width: 150, height: 120, resizeMode: "contain"
+	},
+	logoLandscape: {
+		width: 80,
+		height: 70,
+		resizeMode: "contain"
+	}	
 });
 
 export default Navbar;

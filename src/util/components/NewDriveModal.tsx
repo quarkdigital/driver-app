@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button from "./Button";
 import { reusableStyles } from "../styles";
 import CustomText from "./CustomText";
+import { Props } from "./Navbar";
 
-function NewDriveModal() {
+function NewDriveModal({mobile}: Props) {
 	const [accept, setAccept] = useState(false);
 
 	return (
 		<View
 			style={[
 				t.flexCol,
-				styles.newDriveModal,
+				mobile ? styles.newDriveModalMobile : styles.newDriveModalNormal,
 				!accept ? [styles.borderLeftGreen, t.itemsStart] : styles.borderTopGreen,
 			]}>
+			{mobile && <Image source={require("../../../assets/cross.png")} style={styles.cross}/>}
 			{!accept ? (
 				<View style={[t.pS3, t.itemsStart, t.justifyCenter, t.hFull]}>
 					<Text style={[reusableStyles.greyText, t.mB1]}>New Ride</Text>
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
 		borderRightWidth: 0,
 		borderLeftWidth: 0
 	},
-	newDriveModal: {
+	newDriveModalNormal: {
 		backgroundColor: "#242A34",
 		height: 170,
 		width: "100%",
@@ -88,6 +90,29 @@ const styles = StyleSheet.create({
 		elevation: 2,
 		justifyContent: "flex-start",
 		alignItems: "center",
+	},
+	newDriveModalMobile: {
+		backgroundColor: "#242A34",
+		height: 170,
+		shadowColor: "rgba(0, 0, 0, 0.12)",
+		shadowOffset: { width: 0, height: 0 },
+		shadowOpacity: 1,
+		shadowRadius: 24,
+		elevation: 2,
+		justifyContent: "flex-start",
+		alignItems: "center",
+		position: "absolute",
+		bottom: 10,
+		right: 10,
+		width: 340
+	},
+	cross: {
+		width: 20, 
+		height: 20, 
+		resizeMode: "contain", 
+		position: "absolute", 
+		right: 15, 
+		top: 15
 	}
 });
 
