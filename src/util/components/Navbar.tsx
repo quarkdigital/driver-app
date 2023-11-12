@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import NewDriveModal from "./NewDriveModal";
 import { reusableStyles } from "../styles";
 import CustomText from "./CustomText";
 import SquareButton from "./SquareButton";
 import Button from "./Button";
+import { isMobile } from "../util";
 
 export type Props = {
 	mobile?: boolean;
 	acceptedRide?: boolean;
 }
 
-function Navbar({mobile, acceptedRide}: Props) {
-	const [newOrderModal, setNewOrderModal] = useState(true);
+function Navbar({acceptedRide}: Props) {
+	const [newOrderModal, setNewOrderModal] = useState(false);
+	const [mobile, setMobile] = useState<boolean>(false);
+	useEffect(() => {
+	  setMobile(isMobile());
+	}, []);
+	
 	const buttons = [
 		{
 			title: "Pauza",
-			imageURL: require("/assets/pause.png"),
+			imageURL: require("../../../assets/pause.png"),
 		},
 		{
 			title: "Resetuj Bluetooth",
-			imageURL: require("/assets/bluetooth.png"),
+			imageURL: require("../../../assets/bluetooth.png"),
 		},
 	];
 	
@@ -38,21 +44,22 @@ function Navbar({mobile, acceptedRide}: Props) {
 					<CustomText primary={true}>Status:</CustomText>
 					<CustomText primary={true}>Driving</CustomText>
 				</View>
-			</View>
-			{!acceptedRide ? (<View style={[t.flexCol, t.itemsCenter, t.justifyStart, {height: 400}]}>
-				{!mobile && <Image source={require("../../../assets/logo.png")} style={mobile ? styles.logoLandscape : styles.logoNormal} />}
-				<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, {width: 280}]}>
-					{buttons.map((button) => (
-						<SquareButton
-							key={button.imageURL}
-							label={button.title}
-							imageUrl={button.imageURL}
-							onPress={() => console.log("marko")}
-							mobile={mobile}
-						/>
-					))}
-				</View>
-			</View> 
+			</View>	
+			{!acceptedRide ? (
+				<View style={[t.flexCol, t.itemsCenter, t.justifyCenter, t.hFull, t.absolute, t.top0, t.bottom0]}>
+					<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, {width: 230}]}>
+						{buttons.map((button) => (
+							<SquareButton
+								key={button.imageURL}
+								label={button.title}
+								imageUrl={button.imageURL}
+								onPress={() => console.log("marko")}
+								mobile={mobile}
+							/>
+						))}
+					</View>
+					{<Image source={require("../../../assets/logo.png")} style={mobile ? styles.logoMobile : styles.logoNormal} />}
+				</View> 
 			) : (
 				<View style={[t.flexCol, t.justifyBetween, t.itemsCenter]}>
 					<View style={[t.flexCol, t.justifyCenter, t.itemsCenter]}>
@@ -70,7 +77,7 @@ function Navbar({mobile, acceptedRide}: Props) {
 				<NewDriveModal />
 			) : (
 				!mobile && !acceptedRide && <View style={!mobile ? styles.logoContainer : ""}>
-					<Image source={require("../../../assets/logo.png")} style={styles.logoLandscape} />
+					<Image source={require("../../../assets/logo.png")} style={styles.logoMobile} />
 				</View>
 			)}
 		</View>
@@ -79,13 +86,13 @@ function Navbar({mobile, acceptedRide}: Props) {
 
 const styles = StyleSheet.create({
 	container: {
-		...t.w5_12,
 		...t.hFull,
 		...t.h100,
 		...t.flexCol,
 		...t.justifyBetween,
 		...t.itemsCenter,
-		...reusableStyles.backgroundColor
+		...reusableStyles.backgroundColor,
+		width: 250
 	},
 	statusReady: {
 		color: "#80F17E",
@@ -126,10 +133,12 @@ const styles = StyleSheet.create({
 	logoNormal: {
 		width: 150, height: 120, resizeMode: "contain"
 	},
-	logoLandscape: {
-		width: 80,
-		height: 70,
-		resizeMode: "contain"
+	logoMobile: {
+		width: 100,
+		height: 50,
+		resizeMode: "contain",
+		position: "absolute",
+		bottom: 0
 	}	
 });
 

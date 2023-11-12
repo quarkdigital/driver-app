@@ -29,8 +29,7 @@ function NewDriveModal({mobile}: Props) {
 					<Button
 						label="Accept(8s)"
 						primary={true}
-						imageUrl={require("../../../assets/check.png")}
-						buttonStyle={{ flexDirection: "row", width: "310px", marginTop: 10 }}
+						buttonStyle={{ flexDirection: "row", width: 310, marginTop: 10 }}
 						iconSize={{ width: 15, height: 15 }}
 						onPress={() => setAccept(true)}
 					/>
