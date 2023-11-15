@@ -13,7 +13,6 @@
     "@expo/webpack-config": "^18.0.1",
     "@gorhom/bottom-sheet": "4",
     "@react-native-community/cli-server-api": "^11.3.0",
-    "@react-native-community/geolocation": "^3.0.6",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@types/react-native-maps": "^0.24.2",
@@ -44,8 +43,10 @@
     "react-native-svg": "13.4.0",
     "react-native-svg-transformer": "^1.0.0",
     "react-native-tailwindcss": "^1.1.11",
+    "react-native-tomtom-maps": "0.0.1-alpha.2",
     "react-native-web": "~0.18.10",
-    "socket.io-client": "^4.7.1"
+    "socket.io-client": "^4.7.1",
+    "react-native-webview": "11.26.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

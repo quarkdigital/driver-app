@@ -3,6 +3,7 @@ import { Dimensions, View } from "react-native";
 import Navbar from "./Navbar";
 import { t } from "react-native-tailwindcss";
 import NewDriveModal from "./NewDriveModal";
+import Map from "./Map";
 
 
 // TODO: Change name DriverApp into something else
@@ -12,6 +13,7 @@ function DriverApp() {
 		<View style={[t.wFull, t.hFull, t.flexRow]}>
 			<Navbar acceptedRide={false} />
 			<NewDriveModal mobile={true} />
+			<Map />
 		</View>
 	);
 }
