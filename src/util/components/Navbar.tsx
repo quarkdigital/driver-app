@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import NewDriveModal from "./NewDriveModal";
 import { reusableStyles } from "../styles";
@@ -47,7 +47,7 @@ function Navbar({acceptedRide}: Props) {
 			</View>	
 			{!acceptedRide ? (
 				<View style={[t.flexCol, t.itemsCenter, t.justifyCenter, t.hFull, t.absolute, t.top0, t.bottom0]}>
-					<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, {width: 230}]}>
+					<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, {width: 220}]}>
 						{buttons.map((button) => (
 							<SquareButton
 								key={button.imageURL}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 		...t.justifyBetween,
 		...t.itemsCenter,
 		...reusableStyles.backgroundColor,
-		width: 250
+		width: 250,
 	},
 	statusReady: {
 		color: "#80F17E",

@@ -19,7 +19,7 @@ export default `
         let map = tt.map({
             key: 'I8ln6BCmhWttkmkKcIwhbV1zbg2aAOtM',
             container: 'map',
-            center: [-121.913, 37.361],
+            center: [42.2911 , 18.8403],
             zoom: 15
         });
         map.on('dragend', function() {

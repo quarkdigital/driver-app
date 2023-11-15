@@ -8,7 +8,6 @@ import Map from "./Map";
 
 // TODO: Change name DriverApp into something else
 function DriverApp() {
-	
 	return (
 		<View style={[t.wFull, t.hFull, t.flexRow]}>
 			<Navbar acceptedRide={false} />

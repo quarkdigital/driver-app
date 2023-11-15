@@ -6,7 +6,7 @@ import mapTemplate from "../../../android/map-template";
 export default function App() {
 	let webRef = undefined;
 
-	const [mapCenter, setMapCenter] = useState("-121.913, 37.361");
+	const [mapCenter, setMapCenter] = useState("42.2911, 18.8403");
     
 	const onButtonPress = () => {
 		const [lng, lat] = mapCenter.split(",");

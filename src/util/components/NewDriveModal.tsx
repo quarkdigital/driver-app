@@ -16,7 +16,7 @@ function NewDriveModal({mobile}: Props) {
 				!accept ? [styles.borderLeftGreen] : styles.borderTopGreen,
 			]}>
 			{mobile && 
-			<TouchableHighlight style={[t.absolute, t.wFull, t.hFull]}>
+			<TouchableHighlight style={[t.absolute, t.wFull, t.hFull, t.z10]}>
 				<Image source={require("../../../assets/cross.png")} style={styles.cross} />	
 			</TouchableHighlight>}
 			{!accept ? (
