@@ -5,28 +5,11 @@ import mapTemplate from "../../../android/map-template";
 
 export default function App() {
 	let webRef = undefined;
-
-	const [mapCenter, setMapCenter] = useState("42.2911, 18.8403");
-    
-	const onButtonPress = () => {
-		const [lng, lat] = mapCenter.split(",");
-		webRef.injectJavaScript(`
-        map.setCenter([
-          ${parseFloat(lng)},
-          ${parseFloat(lat)}
-        ])
-      `);
-	};
-    
-	const handleMapEvent = (event) => {
-		setMapCenter(event.nativeEvent.data);
-	};
     
 	return (
 		<View style={styles.container}>
 			<WebView
 				ref={(r) => (webRef = r)}
-				onMessage={handleMapEvent}
 				style={styles.map}
 				originWhitelist={["*"]}
 				source={{ html: mapTemplate }}

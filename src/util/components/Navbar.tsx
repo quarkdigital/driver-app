@@ -7,13 +7,13 @@ import CustomText from "./CustomText";
 import SquareButton from "./SquareButton";
 import Button from "./Button";
 import { isMobile } from "../util";
+import { acceptRide, declineRide, store } from "../../redux";
 
 export type Props = {
 	mobile?: boolean;
-	acceptedRide?: boolean;
 }
 
-function Navbar({acceptedRide}: Props) {
+function Navbar() {
 	const [newOrderModal, setNewOrderModal] = useState(false);
 	const [mobile, setMobile] = useState<boolean>(false);
 	useEffect(() => {
@@ -31,6 +31,7 @@ function Navbar({acceptedRide}: Props) {
 		},
 	];
 	
+	 const acceptedRide = store.getState();	
 
 	return (
 		<View
@@ -45,7 +46,7 @@ function Navbar({acceptedRide}: Props) {
 					<CustomText primary={true}>Driving</CustomText>
 				</View>
 			</View>	
-			{!acceptedRide ? (
+			{!acceptedRide || acceptedRide !== undefined ? (
 				<View style={[t.flexCol, t.itemsCenter, t.justifyCenter, t.hFull, t.absolute, t.top0, t.bottom0]}>
 					<View style={[t.flexRow, t.justifyBetween, t.itemsCenter, {width: 220}]}>
 						{buttons.map((button) => (

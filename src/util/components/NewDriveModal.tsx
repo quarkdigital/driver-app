@@ -1,26 +1,35 @@
-import React, { useState } from "react";
-import { Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import Button from "./Button";
 import { reusableStyles } from "../styles";
 import CustomText from "./CustomText";
 import { Props } from "./Navbar";
+import { acceptRide, store } from "../../redux";
+import { useSelector } from "react-redux";
+
+interface AcceptRide {
+	value: boolean
+}
 
 function NewDriveModal({mobile}: Props) {
-	const [accept, setAccept] = useState(false);
+	const [closeModal, setCloseModal] = useState(false);
+	const acceptedRide = useSelector(state => state?.accepedRide);
+	
+	
 	return (
-		<View
+		!closeModal && <View
 			style={[
 				t.flexCol,
 				mobile ? styles.newDriveModalMobile : styles.newDriveModalNormal,
-				!accept ? [styles.borderLeftGreen] : styles.borderTopGreen,
+				!acceptedRide ? [styles.borderLeftGreen] : styles.borderTopGreen,
 			]}>
 			{mobile && 
-			<TouchableHighlight style={[t.absolute, t.wFull, t.hFull, t.z10]}>
+			<TouchableOpacity style={[t.absolute, t.wFull, t.hFull, t.z20]} onPress={() => setCloseModal(true)}>
 				<Image source={require("../../../assets/cross.png")} style={styles.cross} />	
-			</TouchableHighlight>}
-			{!accept ? (
-				<View style={[t.pS3, t.itemsStart, t.justifyCenter, t.hFull]}>
+			</TouchableOpacity>}
+			{acceptedRide === null ? (
+				<View style={[t.pS3, t.itemsStart, t.justifyCenter, t.hFull, t.z10]}>
 					<Text style={[reusableStyles.greyText, t.mB1]}>New Ride</Text>
 					<CustomText primary={true}>
 						Jadranski put 24
@@ -33,11 +42,11 @@ function NewDriveModal({mobile}: Props) {
 						primary={true}
 						buttonStyle={{ width: 270, marginTop: 10, marginRight: 10 }}
 						iconSize={{ width: 15, height: 15 }}
-						onPress={() => setAccept(true)}
+						onPress={() => store.dispatch(acceptRide())}
 					/>
 				</View>
 			) : (
-				<View style={[t.flexCol, t.justifyBetween, t.hFull, t.itemsStart]}>
+				!mobile && <View style={[t.flexCol, t.justifyBetween, t.hFull, t.itemsStart]}>
 					<View style={[t.flexRow, t.justifyBetween, t.wFull, t.itemsStart]}>
 						<View style={[t.flexCol, t.itemsStart, t.pT1]}>
 							<Text style={reusableStyles.greyText}>ADDRESS</Text>
