@@ -34,8 +34,8 @@ const DriverApp = () => {
 	// const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 	const [ridePrompt, setRidePrompt] = useState(false);
 	const [timeoutNumber, setTimeoutNumber] = useState(10);
-	const [timerId, setTimerId] = useState<NodeJS.Timer | null>(null);
-	const [promptTimerId, setPromptTimerId] = useState<NodeJS.Timer | null>(null);
+	const [timerId, setTimerId] = useState<number | null>(null);
+	const [promptTimerId, setPromptTimerId] = useState<number | null>(null);
 	const [dispatcher, setDispatcher] = useState<Dispatcher>();
 	const [pickUpPassengerLocation, setPickUpPassengerLocation] = useState<Location | undefined>();
 	// TODO: taximetar status se mjenja u odnosu na status na fizickom uredjaju
