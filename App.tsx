@@ -1,14 +1,25 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import DriverApp from "./src/util/components/Driver";
+import MainMap from "./src/components/MainMap";
 import { enableLatestRenderer } from "react-native-maps";
+import DriverTab from "./src/components/DriverTab";
+import { useFonts } from "expo-font";
+import { customFonts } from "./src/util/fonts";
 
 enableLatestRenderer();
 
 export default function App() {
+	const [fontsLoaded] = useFonts(customFonts);
+
+	// Load fonts asynchronously
+
+	if (!fontsLoaded) {
+		return null;
+	}
 	return (
 		<View style={styles.container}>
-			<DriverApp />
+			<MainMap />
+			<DriverTab />
 		</View>
 	);
 }
