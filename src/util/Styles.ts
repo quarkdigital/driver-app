@@ -21,6 +21,17 @@ export const FF = StyleSheet.create({
 	poppinsThinItalic: { fontFamily: "Poppins-ThinItalic" },
 });
 
+export const Colors = {
+	darkBlue: "#1C2129",
+	lightGreen: "#80F17E",
+	darkGray: "#242A34",
+	gray: "#343C4B",
+	yellow: "#FFF385",
+	red: "#FF3535",
+	orange: "#FF9B3F",
+	brightGray: "#808080",
+};
+
 export const txtCLR = StyleSheet.create({
 	darkBlue: { color: "#1C2129" },
 	lightGreen: { color: "#80F17E" },
