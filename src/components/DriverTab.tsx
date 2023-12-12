@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { t } from "react-native-tailwindcss";
 import { CLR, Colors, FF, txtCLR } from "../util/Styles";
 import SquareButton from "./common/SquareButton";
 import GrayLogo from "../../assets/svg/GrayLogo";
 import RoundButton from "./common/RoundButton";
+import { useDispatch, useSelector } from "react-redux";
+import { setDrivingStatus } from "../store/reducers/driverSlice";
 
 export default function DriverTab() {
-	const [drivingStatus, setDrivingStatus] = useState<
-		"driving" | "picking-up" | "dropping-off" | "on-pause" | "dropping-off-pick-up"
-	>("driving");
+	// const [drivingStatus, setDrivingStatus] = useState<
+	// 	"driving" | "picking-up" | "dropping-off" | "on-pause" | "dropping-off-pick-up"
+	// >("driving");
+	const dispatch = useDispatch();
+	const drivingStatus = useSelector(state => state.driver.drivingStatus);
 
 	let statusColor;
 	let statusText;
@@ -67,15 +71,7 @@ export default function DriverTab() {
 						Status
 					</Text>
 					<TouchableWithoutFeedback
-						onPress={() =>
-							setDrivingStatus(prev => {
-								if (prev === "driving") {
-									return "picking-up";
-								} else {
-									return "driving";
-								}
-							})
-						}>
+						onPress={() => dispatch(setDrivingStatus("picking-up"))}>
 						<Text
 							style={[
 								FF.poppinsBold,
@@ -126,7 +122,11 @@ export default function DriverTab() {
 			{drivingStatus === "picking-up" && (
 				<View style={[t.mB4]}>
 					<RoundButton onPress={() => {}} label="Upisi lokaciju" style="fill" />
-					<RoundButton onPress={() => {}} label="Otkazi voznju" style="outline" />
+					<RoundButton
+						onPress={() => dispatch(setDrivingStatus("driving"))}
+						label="Otkazi voznju"
+						style="outline"
+					/>
 				</View>
 			)}
 		</View>

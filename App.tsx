@@ -5,6 +5,8 @@ import { enableLatestRenderer } from "react-native-maps";
 import DriverTab from "./src/components/DriverTab";
 import { useFonts } from "expo-font";
 import { customFonts } from "./src/util/fonts";
+import { Provider } from "react-redux";
+import store from "./src/store/index";
 
 enableLatestRenderer();
 
@@ -17,10 +19,12 @@ export default function App() {
 		return null;
 	}
 	return (
-		<View style={styles.container}>
-			<MainMap />
-			<DriverTab />
-		</View>
+		<Provider store={store}>
+			<View style={styles.container}>
+				<MainMap />
+				<DriverTab />
+			</View>
+		</Provider>
 	);
 }
 
