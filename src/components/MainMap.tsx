@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { io } from "socket.io-client";
-import { GS } from "../Styles";
 import MapView, { Marker } from "react-native-maps";
+// import { t } from "react-native-tailwindcss";
 
 const socket = io("http://192.168.1.94:3001/Palma"); // Insert your own ip address
 
@@ -30,17 +30,18 @@ const DriverApp = () => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [location, setLocation] = useState<Location>({ lat: 42.29263, lng: 18.848562 });
 	const mapRef = useRef<MapView | null>(null);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isConnected, setIsConnected] = useState(false);
 	// const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 	const [ridePrompt, setRidePrompt] = useState(false);
-	const [timeoutNumber, setTimeoutNumber] = useState(10);
+	// const [timeoutNumber, setTimeoutNumber] = useState(10);
 	const [timerId, setTimerId] = useState<number | null>(null);
 	const [promptTimerId, setPromptTimerId] = useState<number | null>(null);
 	const [dispatcher, setDispatcher] = useState<Dispatcher>();
 	const [pickUpPassengerLocation, setPickUpPassengerLocation] = useState<Location | undefined>();
 	// TODO: taximetar status se mjenja u odnosu na status na fizickom uredjaju
 	// ovaj state je ovakav samo radi testiranja
-	const [taxiMeterStatus, setTaxiMeterStatus] = useState<"ON" | "OFF">("OFF");
+	// const [taxiMeterStatus, setTaxiMeterStatus] = useState<"ON" | "OFF">("OFF");
 	const [vehicleStatus, setVehicleStatus] = useState<
 		"pickingUp" | "droppingOff" | "onPause" | "free" | "droppingOffToPickUp"
 	>("free");
@@ -97,11 +98,11 @@ const DriverApp = () => {
 		}
 	}, [ridePrompt]);
 
-	function onDisconnect() {
-		socket.emit("update-location", { vehicleID, companyID, location, connected: false });
-		socket.disconnect();
-		// clearInterval(intervalId);
-	}
+	// function onDisconnect() {
+	// 	socket.emit("update-location", { vehicleID, companyID, location, connected: false });
+	// 	socket.disconnect();
+	// 	// clearInterval(intervalId);
+	// }
 
 	function onAcceptDecline(button: string) {
 		if (button === "Accept") {
@@ -143,9 +144,9 @@ const DriverApp = () => {
 		}
 	};
 
-	function onSubmit() {
-		socket.emit("update-location", { vehicleID, companyID, location, connected: true });
-	}
+	// function onSubmit() {
+	// 	socket.emit("update-location", { vehicleID, companyID, location, connected: true });
+	// }
 
 	// const interval = setInterval(() => {
 	// 	const newLocation = { lat: Math.random(), lng: Math.random() };
@@ -170,19 +171,22 @@ const DriverApp = () => {
 								latitude: pickUpPassengerLocation.lat,
 								longitude: pickUpPassengerLocation.lng,
 							}}
-							title="Marker Title"
-							description="Marker Description"
+							title="Passenger Location"
+							description="Passengers' location marker"
 							pinColor="red"
 						/>
 					)}
 				<Marker
 					coordinate={{ latitude: location.lat, longitude: location.lng }}
-					title="Marker Title"
-					description="Marker Description"
+					title="Car Location"
+					description="Cars' location marker"
 					pinColor="blue"
 				/>
 			</MapView>
-			<View
+
+			{/* Taximetar */}
+
+			{/* <View
 				style={[
 					styles.taximeter,
 					GS.primaryLight,
@@ -204,8 +208,11 @@ const DriverApp = () => {
 						<Text style={[GS.textWhite]}>OFF</Text>
 					</TouchableHighlight>
 				</View>
-			</View>
-			<View style={[styles.informationContainer]}>
+			</View> */}
+
+			{/* INFORMARION CONTAINER */}
+
+			{/* <View style={[styles.informationContainer]}>
 				<Text>Driver App</Text>
 				<Text>{isConnected ? "🟢 Connected" : "🔴 Disconnected"}</Text>
 				<Text>Company: {companyID}</Text>
@@ -239,8 +246,11 @@ const DriverApp = () => {
 				<TouchableHighlight onPress={onDisconnect}>
 					<Text>Disconnect</Text>
 				</TouchableHighlight>
-			</View>
-			{ridePrompt && (
+			</View> */}
+
+			{/* Ride Prompt */}
+
+			{/* {ridePrompt && (
 				<View style={[GS.primaryLight, GS.alignICenter, GS.gap3, GS.px6, GS.py3]}>
 					<Text style={[GS.textWhite]}>Accept Ride? {timeoutNumber}</Text>
 					<View style={[GS.flexRow, GS.gap6]}>
@@ -256,7 +266,7 @@ const DriverApp = () => {
 						</TouchableHighlight>
 					</View>
 				</View>
-			)}
+			)} */}
 		</View>
 	);
 };
