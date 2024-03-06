@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
-import { io } from "socket.io-client";
+import { StyleSheet, Text, TextInput, TouchableHighlight, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-// import { t } from "react-native-tailwindcss";
-
-const socket = io("http://192.168.1.94:3001/Palma"); // Insert your own ip address
+import { t } from "react-native-tailwindcss";
+import { socket } from "../util/socketConfig";
 
 type Dispatcher = {
 	companyID: string;
@@ -20,31 +18,25 @@ const DriverApp = () => {
 	const companyID = "Palma";
 	const vehicleID = "123"; // Unique identifier for each car
 
-	// Lokacije auta po budvi za testiranje
-	// lat: 42.289938, lng: 18.843297
-	// lat: 42.288384, lng: 18.843297
-	// lat: 42.288384, lng: 18.844397
-	// lat: 42.286789, lng: 18.842497
-	// lat: 42.293789, lng: 18.841562
-
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [location, setLocation] = useState<Location>({ lat: 42.29263, lng: 18.848562 });
 	const mapRef = useRef<MapView | null>(null);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isConnected, setIsConnected] = useState(false);
 	// const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 	const [ridePrompt, setRidePrompt] = useState(false);
-	// const [timeoutNumber, setTimeoutNumber] = useState(10);
+	const [timeoutNumber, setTimeoutNumber] = useState(10);
 	const [timerId, setTimerId] = useState<number | null>(null);
 	const [promptTimerId, setPromptTimerId] = useState<number | null>(null);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [dispatcher, setDispatcher] = useState<Dispatcher>();
 	const [pickUpPassengerLocation, setPickUpPassengerLocation] = useState<Location | undefined>();
 	// TODO: taximetar status se mjenja u odnosu na status na fizickom uredjaju
 	// ovaj state je ovakav samo radi testiranja
 	// const [taxiMeterStatus, setTaxiMeterStatus] = useState<"ON" | "OFF">("OFF");
 	const [vehicleStatus, setVehicleStatus] = useState<
-		"pickingUp" | "droppingOff" | "onPause" | "free" | "droppingOffToPickUp"
+		"picking-up" | "dropping-off" | "on-break" | "free" | "dropping-off-to-pickup" | "offline"
 	>("free");
+	const [rideId, setRideId] = useState<string>();
 
 	const budva = {
 		latitude: 42.29,
@@ -55,34 +47,56 @@ const DriverApp = () => {
 
 	// const INTERVAL_TIME = 7000;
 
+	// Lokacije auta po budvi za testiranje
+	// const carLocations = [
+	// 	{ lat: 42.289938, lng: 18.843297 },
+	// 	{ lat: 42.288384, lng: 18.843297 },
+	// 	{ lat: 42.288384, lng: 18.844397 },
+	// 	{ lat: 42.286789, lng: 18.842497 },
+	// 	{ lat: 42.293789, lng: 18.841562 },
+	// ];
+
 	useEffect(() => {
 		// Send location updates to the server
 		socket.on("connect", () => {
-			socket.emit("update-location", { vehicleID, companyID, location, connected: true });
+			socket.emit("driver/update-location", { location });
 			setIsConnected(true);
 		});
+
+		socket.on("error", error => {
+			console.error(error);
+		});
+
 		socket.on("disconnect", () => {
 			console.log("Driver disconnected");
-			socket.emit("update-location", { vehicleID, companyID, location, connected: false });
+			socket.emit("driver/update-location", { location });
 
 			// clearInterval(interval);
 			setIsConnected(false);
 		});
 
-		socket.on("sending-prompt", data => {
-			const { car, dispatcher, passengerLocation } = data;
+		socket.on("server/new-ride-request", data => {
+			console.log({ data });
+			const { pickupLocation, rideId } = data;
+			setRideId(rideId);
 			setPickUpPassengerLocation({
-				lat: passengerLocation.lat,
-				lng: passengerLocation.lng,
+				lat: pickupLocation.lat,
+				lng: pickupLocation.lng,
 			});
-			setDispatcher(dispatcher);
-			console.log({ passengerLocation });
-			// Ovo sam stavio kad nisam slao socket tacno onom auto kojem treba tako da
-			// mozda nije vise potrebno al mozda ne moze da skodi jos jedna provjera
-			if (car.vehicleID === vehicleID && car.companyID === companyID) {
-				setRidePrompt(true);
-			}
+
+			setRidePrompt(true);
 		});
+
+		// Za updateovanje lokacije
+		// const interval = setInterval(() => {
+		// 	const newLocation = { lat: Math.random(), lng: Math.random() };
+		// 	setLocation(newLocation);
+		// 	socket.emit("driver/update-location", {
+		// 		location: newLocation,
+		// 	});
+		// }, INTERVAL_TIME);
+		// setIntervalId(interval);
+
 		return () => {
 			// Clean up socket connection
 			socket.disconnect();
@@ -98,26 +112,25 @@ const DriverApp = () => {
 		}
 	}, [ridePrompt]);
 
-	// function onDisconnect() {
-	// 	socket.emit("update-location", { vehicleID, companyID, location, connected: false });
-	// 	socket.disconnect();
-	// 	// clearInterval(intervalId);
-	// }
+	function onDisconnect() {
+		socket.disconnect();
+		// clearInterval(intervalId);
+	}
 
 	function onAcceptDecline(button: string) {
 		if (button === "Accept") {
 			setRidePrompt(false);
-			vehicleStatus === "droppingOff" && setVehicleStatus("droppingOffToPickUp");
-			vehicleStatus === "free" && setVehicleStatus("pickingUp");
-			socket.emit("ride-accepted", { vehicleID, dispatcher });
-			console.log({ button, pickUpPassengerLocation, vehicleStatus });
+			vehicleStatus === "dropping-off" && setVehicleStatus("dropping-off-to-pickup");
+			vehicleStatus === "free" && setVehicleStatus("picking-up");
+			socket.emit("driver/accept-ride", { rideId });
+			socket.emit("driver/update-status", { vehicleStatus });
 		} else {
 			setRidePrompt(false);
 			// Ovo sam stavio da u slucaju da nodje do neke greske i vozacu koji vec kupi klijenta se slucajno
 			// posalje prompt za sledecu voznju i on je odbije jer vec ima voznju da mu se ne obrise trenutni
 			// passangerPickUpLocation \/ \/ \/
-			vehicleStatus !== "pickingUp" && setPickUpPassengerLocation(undefined);
-			console.log(button);
+			vehicleStatus !== "picking-up" && setPickUpPassengerLocation(undefined);
+			socket.emit("driver/decline-ride", { rideId });
 		}
 	}
 
@@ -144,28 +157,13 @@ const DriverApp = () => {
 		}
 	};
 
-	// function onSubmit() {
-	// 	socket.emit("update-location", { vehicleID, companyID, location, connected: true });
-	// }
-
-	// const interval = setInterval(() => {
-	// 	const newLocation = { lat: Math.random(), lng: Math.random() };
-	// 	setLocation(newLocation);
-	// 	socket.emit("updateLocation", {
-	// 		vehicleID,
-	// 		companyID,
-	// 		location: newLocation,
-	// 		connected: true,
-	// 	});
-	// }, INTERVAL_TIME);
-	// setIntervalId(interval);
-
 	return (
 		<View style={styles.pageContainer}>
 			<MapView ref={mapRef} style={styles.map} initialRegion={budva}>
 				{/* Add markers */}
 				{pickUpPassengerLocation &&
-					(vehicleStatus === "pickingUp" || vehicleStatus === "droppingOffToPickUp") && (
+					(vehicleStatus === "picking-up" ||
+						vehicleStatus === "dropping-off-to-pickup") && (
 						<Marker
 							coordinate={{
 								latitude: pickUpPassengerLocation.lat,
@@ -212,17 +210,17 @@ const DriverApp = () => {
 
 			{/* INFORMARION CONTAINER */}
 
-			{/* <View style={[styles.informationContainer]}>
+			<View style={[styles.informationContainer]}>
 				<Text>Driver App</Text>
 				<Text>{isConnected ? "🟢 Connected" : "🔴 Disconnected"}</Text>
 				<Text>Company: {companyID}</Text>
 				<Text>Car ID: {vehicleID}</Text>
 				<Text>Status: {vehicleStatus}</Text>
-				<Text>Taximeter: {taxiMeterStatus === "ON" ? "🟢 ON" : "🔴 OFF"}</Text>
+				{/* <Text>Taximeter: {taxiMeterStatus === "ON" ? "🟢 ON" : "🔴 OFF"}</Text> */}
 				<Text>Location: </Text>
-				<View style={[GS.flexRow, GS.gap5]}>
+				<View style={[t.flexRow]}>
 					<TextInput
-						style={{ height: 40 }}
+						style={[{ height: 40 }, t.mR3]}
 						placeholder={location.lat.toString()}
 						onChangeText={newText =>
 							setLocation(prevLocation => ({ ...prevLocation, lat: Number(newText) }))
@@ -240,33 +238,30 @@ const DriverApp = () => {
 					/>
 				</View>
 
-				<TouchableHighlight onPress={onSubmit}>
-					<Text>Submit</Text>
-				</TouchableHighlight>
 				<TouchableHighlight onPress={onDisconnect}>
 					<Text>Disconnect</Text>
 				</TouchableHighlight>
-			</View> */}
+			</View>
 
 			{/* Ride Prompt */}
 
-			{/* {ridePrompt && (
-				<View style={[GS.primaryLight, GS.alignICenter, GS.gap3, GS.px6, GS.py3]}>
-					<Text style={[GS.textWhite]}>Accept Ride? {timeoutNumber}</Text>
-					<View style={[GS.flexRow, GS.gap6]}>
+			{ridePrompt && (
+				<View style={[t.bgWhite, t.alignCenter, t.pX10, t.pY10, t.z10]}>
+					<Text style={[t.textBlack, t.mB1]}>Accept Ride? {timeoutNumber}</Text>
+					<View style={[t.flexRow]}>
 						<TouchableHighlight
 							onPress={() => onAcceptDecline("Accept")}
-							style={[GS.px4, GS.py2, styles.buttonAccept]}>
-							<Text style={[GS.textWhite]}>Accept</Text>
+							style={[t.pX1, t.pY1, t.mL1, styles.buttonAccept]}>
+							<Text style={[t.textWhite]}>Accept</Text>
 						</TouchableHighlight>
 						<TouchableHighlight
 							onPress={() => onAcceptDecline("Decline")}
-							style={[GS.px4, GS.py2, styles.buttonDecline]}>
-							<Text style={[GS.textWhite]}>Decline</Text>
+							style={[t.pX4, t.pY2, styles.buttonDecline]}>
+							<Text style={[t.textWhite]}>Decline</Text>
 						</TouchableHighlight>
 					</View>
 				</View>
-			)} */}
+			)}
 		</View>
 	);
 };

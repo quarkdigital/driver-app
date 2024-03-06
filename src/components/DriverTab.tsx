@@ -23,6 +23,7 @@ export default function DriverTab() {
 			statusText = "slobodan";
 			break;
 		case "picking-up":
+			// eslint-disable-next-line indent
 			statusColor = Colors.yellow;
 			statusText = "preuzimanje";
 			break;
