@@ -15,9 +15,6 @@ type Location = {
 };
 
 const DriverApp = () => {
-	const companyID = "Palma";
-	const vehicleID = "123"; // Unique identifier for each car
-
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [location, setLocation] = useState<Location>({ lat: 42.29263, lng: 18.848562 });
 	const mapRef = useRef<MapView | null>(null);
@@ -30,9 +27,6 @@ const DriverApp = () => {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [dispatcher, setDispatcher] = useState<Dispatcher>();
 	const [pickUpPassengerLocation, setPickUpPassengerLocation] = useState<Location | undefined>();
-	// TODO: taximetar status se mjenja u odnosu na status na fizickom uredjaju
-	// ovaj state je ovakav samo radi testiranja
-	// const [taxiMeterStatus, setTaxiMeterStatus] = useState<"ON" | "OFF">("OFF");
 	const [vehicleStatus, setVehicleStatus] = useState<
 		"picking-up" | "dropping-off" | "on-break" | "free" | "dropping-off-to-pickup" | "offline"
 	>("free");
@@ -68,7 +62,6 @@ const DriverApp = () => {
 		});
 
 		socket.on("disconnect", () => {
-			console.log("Driver disconnected");
 			socket.emit("driver/update-location", { location });
 
 			// clearInterval(interval);
@@ -76,7 +69,6 @@ const DriverApp = () => {
 		});
 
 		socket.on("server/new-ride-request", data => {
-			console.log({ data });
 			const { pickupLocation, rideId } = data;
 			setRideId(rideId);
 			setPickUpPassengerLocation({
@@ -126,9 +118,7 @@ const DriverApp = () => {
 			socket.emit("driver/update-status", { vehicleStatus });
 		} else {
 			setRidePrompt(false);
-			// Ovo sam stavio da u slucaju da nodje do neke greske i vozacu koji vec kupi klijenta se slucajno
-			// posalje prompt za sledecu voznju i on je odbije jer vec ima voznju da mu se ne obrise trenutni
-			// passangerPickUpLocation \/ \/ \/
+
 			vehicleStatus !== "picking-up" && setPickUpPassengerLocation(undefined);
 			socket.emit("driver/decline-ride", { rideId });
 		}
@@ -136,7 +126,6 @@ const DriverApp = () => {
 
 	function startTimeout() {
 		const interval = setInterval(() => {
-			// Decrement the timeoutNumber by 1
 			setTimeoutNumber(prevTimeout => prevTimeout - 1);
 		}, 1000);
 		setPromptTimerId(interval);
@@ -182,39 +171,11 @@ const DriverApp = () => {
 				/>
 			</MapView>
 
-			{/* Taximetar */}
-
-			{/* <View
-				style={[
-					styles.taximeter,
-					GS.primaryLight,
-					GS.alignICenter,
-					GS.gap3,
-					GS.px6,
-					GS.py3,
-				]}>
-				<Text style={[GS.textWhite]}>Taximeter</Text>
-				<View style={[GS.flexRow, GS.gap6]}>
-					<TouchableHighlight
-						onPress={() => setTaxiMeterStatus("ON")}
-						style={[GS.px4, GS.py2, styles.buttonAccept]}>
-						<Text style={[GS.textWhite]}>ON</Text>
-					</TouchableHighlight>
-					<TouchableHighlight
-						onPress={() => setTaxiMeterStatus("OFF")}
-						style={[GS.px4, GS.py2, styles.buttonDecline]}>
-						<Text style={[GS.textWhite]}>OFF</Text>
-					</TouchableHighlight>
-				</View>
-			</View> */}
-
 			{/* INFORMARION CONTAINER */}
 
 			<View style={[styles.informationContainer]}>
 				<Text>Driver App</Text>
 				<Text>{isConnected ? "🟢 Connected" : "🔴 Disconnected"}</Text>
-				<Text>Company: {companyID}</Text>
-				<Text>Car ID: {vehicleID}</Text>
 				<Text>Status: {vehicleStatus}</Text>
 				{/* <Text>Taximeter: {taxiMeterStatus === "ON" ? "🟢 ON" : "🔴 OFF"}</Text> */}
 				<Text>Location: </Text>
