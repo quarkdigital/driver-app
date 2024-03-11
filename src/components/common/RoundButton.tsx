@@ -18,19 +18,14 @@ export default function RoundButton({ onPress, label, style }: Props) {
 			style={[
 				t.roundedFull,
 				style === "fill" ? styles.fillClass : styles.outlineClass,
-				t.mY2,
-				t.wFull,
-				styles.padding,
+				styles.button,
 			]}
 			onPress={onPress}>
 			<Text
 				style={[
-					t.textWhite,
+					styles.text,
 					FF.poppinsBold,
-					t.p0,
-					t.m0,
-					t.textCenter,
-					t.uppercase,
+
 					style === "fill" ? { color: "#1C2129" } : { color: "white" },
 				]}>
 				{label}
@@ -40,10 +35,19 @@ export default function RoundButton({ onPress, label, style }: Props) {
 }
 
 const styles = StyleSheet.create({
-	padding: { paddingTop: 10, paddingBottom: 7 },
+	button: { paddingTop: 10, paddingBottom: 7, width: "100%", marginVertical: 8 },
+	text: {
+		color: "white",
+		padding: 0,
+		margin: 0,
+
+		textAlign: "center",
+		textTransform: "uppercase",
+	},
 	fillClass: {
 		backgroundColor: "white",
 	},
+
 	outlineClass: {
 		backgroundColor: "transparent",
 		borderWidth: 1,

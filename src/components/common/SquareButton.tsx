@@ -15,16 +15,7 @@ export default function SquareButton({ onPress, label, icon }: Props) {
 	return (
 		<TouchableHighlight
 			underlayColor="rgba(255,255,255,0.15)"
-			style={[
-				t.roundedLg,
-				t.bgTransparent,
-				t.border2,
-				t.borderWhite,
-				t.pT2,
-				t.w3_6,
-				styles.border,
-				styles.buttonSize,
-			]}
+			style={[t.roundedLg, t.border2, styles.border]}
 			onPress={onPress}>
 			<View style={[t.flex, t.justifyBetween, t.itemsCenter]}>
 				{icon === "pause" ? (
@@ -45,9 +36,10 @@ const styles = StyleSheet.create({
 		borderTopStartRadius: 16,
 		borderTopEndRadius: 16,
 		borderBottomEndRadius: 16,
-	},
-	buttonSize: {
 		height: 110,
 		width: 110,
+		backgroundColor: "transparent",
+		borderColor: "#fff",
+		paddingTop: 8,
 	},
 });

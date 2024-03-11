@@ -45,19 +45,7 @@ export default function DriverTab() {
 	}
 
 	return (
-		<View
-			style={[
-				t.absolute,
-				t.w2_5,
-				t.left0,
-				CLR.darkBlue,
-				t.hFull,
-				t.pT6,
-				t.pX6,
-				t.flex,
-				t.justifyBetween,
-				styles.border,
-			]}>
+		<View style={[styles.tabContainer, CLR.darkBlue]}>
 			<View style={[t.flexRow, t.justifyBetween]}>
 				<View style={[t.h12]}>
 					<Text
@@ -87,15 +75,19 @@ export default function DriverTab() {
 				</View>
 			</View>
 			{drivingStatus === "driving" && (
-				<View style={[t.flexRow, t.justifyBetween]}>
-					<SquareButton onPress={() => {}} label="Pauza" icon="pause" />
-					<SquareButton onPress={() => {}} label="Resetuj Bluetooth" icon="bluetooth" />
-				</View>
-			)}
-			{drivingStatus === "driving" && (
-				<View style={[t.h12, t.itemsCenter]}>
-					<GrayLogo />
-				</View>
+				<>
+					<View style={[t.flexRow, t.justifyBetween]}>
+						<SquareButton onPress={() => {}} label="Pauza" icon="pause" />
+						<SquareButton
+							onPress={() => {}}
+							label="Resetuj Bluetooth"
+							icon="bluetooth"
+						/>
+					</View>
+					<View style={[t.h12, t.itemsCenter]}>
+						<GrayLogo />
+					</View>
+				</>
 			)}
 
 			{drivingStatus === "picking-up" && (
@@ -135,7 +127,16 @@ export default function DriverTab() {
 }
 
 const styles = StyleSheet.create({
-	border: {
+	tabContainer: {
+		position: "absolute",
+		width: "40%",
+		left: 0,
+
+		height: "100%",
+		paddingTop: 24,
+		paddingHorizontal: 24,
+		display: "flex",
+		justifyContent: "space-between",
 		borderTopEndRadius: 16,
 		borderBottomEndRadius: 16,
 	},

@@ -4,11 +4,6 @@ import MapView, { Marker } from "react-native-maps";
 import { t } from "react-native-tailwindcss";
 import { socket } from "../util/socketConfig";
 
-type Dispatcher = {
-	companyID: string;
-	dispatcherID: string;
-};
-
 type Location = {
 	lat: number;
 	lng: number;
@@ -24,8 +19,6 @@ const DriverApp = () => {
 	const [timeoutNumber, setTimeoutNumber] = useState(10);
 	const [timerId, setTimerId] = useState<number | null>(null);
 	const [promptTimerId, setPromptTimerId] = useState<number | null>(null);
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [dispatcher, setDispatcher] = useState<Dispatcher>();
 	const [pickUpPassengerLocation, setPickUpPassengerLocation] = useState<Location | undefined>();
 	const [vehicleStatus, setVehicleStatus] = useState<
 		"picking-up" | "dropping-off" | "on-break" | "free" | "dropping-off-to-pickup" | "offline"
@@ -177,7 +170,6 @@ const DriverApp = () => {
 				<Text>Driver App</Text>
 				<Text>{isConnected ? "🟢 Connected" : "🔴 Disconnected"}</Text>
 				<Text>Status: {vehicleStatus}</Text>
-				{/* <Text>Taximeter: {taxiMeterStatus === "ON" ? "🟢 ON" : "🔴 OFF"}</Text> */}
 				<Text>Location: </Text>
 				<View style={[t.flexRow]}>
 					<TextInput
