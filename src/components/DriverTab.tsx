@@ -45,17 +45,11 @@ export default function DriverTab() {
 		<View style={[styles.tabContainer, CLR.darkBlue]}>
 			<View style={[t.flexRow, t.justifyBetween]}>
 				<View style={[t.h12]}>
-					<Text
-						style={[FF.poppinsLight, t.uppercase, t.textXs, t.textWhite, t.opacity75]}>
-						vrijeme
-					</Text>
+					<Text style={[FF.poppinsLight, styles.status]}>vrijeme</Text>
 					<Text style={[FF.poppinsBold, t.textBase, t.textWhite]}>12:34</Text>
 				</View>
 				<View style={[t.itemsEnd]}>
-					<Text
-						style={[FF.poppinsLight, t.uppercase, t.textXs, t.textWhite, t.opacity75]}>
-						Status
-					</Text>
+					<Text style={[FF.poppinsLight, styles.status]}>Status</Text>
 					<TouchableWithoutFeedback
 						onPress={() => dispatch(setDrivingStatus("picking-up"))}>
 						<Text
@@ -136,5 +130,11 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		borderTopEndRadius: 16,
 		borderBottomEndRadius: 16,
+	},
+	status: {
+		textTransform: "uppercase",
+		fontSize: 12,
+		color: "#fff",
+		opacity: 0.75,
 	},
 });
