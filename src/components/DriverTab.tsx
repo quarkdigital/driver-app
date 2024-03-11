@@ -9,9 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setDrivingStatus } from "../store/reducers/driverSlice";
 
 export default function DriverTab() {
-	// const [drivingStatus, setDrivingStatus] = useState<
-	// 	"driving" | "picking-up" | "dropping-off" | "on-pause" | "dropping-off-pick-up"
-	// >("driving");
 	const dispatch = useDispatch();
 	const drivingStatus = useSelector(state => state.driver.drivingStatus);
 
